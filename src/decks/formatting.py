@@ -1,6 +1,6 @@
 from interactions import Embed
 
-from config import ARKHAM_DB
+from config import ARKHAM_BUILD
 from src.core.translator import locale as _
 from src.p_cards.formatting import format_player_card_deck
 
@@ -35,7 +35,7 @@ def format_deck(deck, info):
     m_description = f"{investigator}\n{xp}\n"
 
     deck_type = "decklist" if deck["user_id"] else "deck"
-    url = f"{ARKHAM_DB}/{deck_type}/view/{deck['id']}"
+    url = f"{ARKHAM_BUILD}/{deck_type}/view/{deck['id']}"
 
     if info["assets_q"] > 0:
         assets = f"{_('assets')}: ({str(info['assets_q'])})"
@@ -70,7 +70,7 @@ def format_upgraded_deck(deck1, info):
     xp = f"_{_('xp_upgrade')}: {str(info['xp_spent'])}/{str(info['xp_diff'])}_"
     m_description = f"{investigator}\n{xp}"
 
-    url = f"{ARKHAM_DB}/deck/view/{deck1['id']}"
+    url = f"{ARKHAM_BUILD}/deck/view/{deck1['id']}"
     embed = Embed(
         title=m_title, description=m_description, color=info["color"], url=url
     )
