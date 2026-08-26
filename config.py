@@ -13,6 +13,9 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 ARKHAM_DB = os.getenv("ARKHAMDB")
 logging.info(f"ArkhamDB url: {ARKHAM_DB}")
 
+ARKHAM_BUILD = "https://arkham.build"
+ARKHAM_BUILD_API = "https://api.arkham.build"
+
 # You can choose to es/en: Check Sr-Cotorre Data to check all languages that are available!
 LANG = os.getenv("BOT_LANGUAGE")
 logging.info(f"Language: {LANG}")
