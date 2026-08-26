@@ -1,6 +1,6 @@
 from interactions import Embed
 
-from config import ARKHAM_DB, TEXT_FORMAT
+from config import ARKHAM_DB, TEXT_FORMAT, ARKHAM_BUILD
 from src.api_interaction.cycle import cycle
 from src.core.translator import locale as _
 from src.core.utils import get_code
@@ -17,7 +17,7 @@ def create_embed(title: str, description="", c=None, footnote="") -> Embed:
     :return: A Discord embed.
     """
     if c:
-        url = f"{ARKHAM_DB}/card/{c['code']}"
+        url = f"{ARKHAM_BUILD}/card/{c['code']}"
         embed = Embed(
             title=title, description=description, color=color_picker(c), url=url
         )
