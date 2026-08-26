@@ -12,10 +12,10 @@ class CardsDB:
 
     def __init__(self):
         self.ah_all_cards = requests.get(
-            f"{ARKHAM_DB}/api/public/cards?encounter=1", timeout=3
+            f"{ARKHAM_DB}/api/public/cards?encounter=1", timeout=10
         ).json()
         self.ah_player = requests.get(
-            f"{ARKHAM_DB}/api/public/cards?encounter=0", timeout=3
+            f"{ARKHAM_DB}/api/public/cards?encounter=0", timeout=10
         ).json()
 
         self.ah_player = [
@@ -61,10 +61,10 @@ class CardsDB:
     def refresh(self):
         """Refreshes the cards from the ArkhamDB"""
         self.ah_all_cards = requests.get(
-            f"{ARKHAM_DB}/api/public/cards?encounter=1", timeout=3
+            f"{ARKHAM_DB}/api/public/cards?encounter=1", timeout=10
         ).json()
         self.ah_player = requests.get(
-            f"{ARKHAM_DB}/api/public/cards?encounter=0", timeout=3
+            f"{ARKHAM_DB}/api/public/cards?encounter=0", timeout=10
         ).json()
         self.ah_encounter = [c for c in self.ah_all_cards if "spoiler" in c]
         self.ah_player = [c for c in self.ah_player if "duplicate_of_code" not in c]
