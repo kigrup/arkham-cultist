@@ -43,8 +43,8 @@ load_dotenv()
 logging.basicConfig(
     level=logging.INFO,
     format=log_format,
+    stream=sys.stdout,
 )
-logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 bot = Client(token=TOKEN, intents=Intents.DEFAULT)
 
