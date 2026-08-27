@@ -1,25 +1,22 @@
-# Sr. "Cotorre"
-Discord bot inspired by the Mr. Rook, it fetches for arkhamDB cards and decks (and some other things).
+# Arkham Cultist
+
+Discord bot forked from _Cotorrra_. Fetches Arkham Horror LCG cards, decks and images from [arkham.build](https://arkham.build) and [arkhamdb](https://arkhamdb.com).
 
 ## How to run
 
-### Create a virtual environment
+First you'll need to set up a .env file with the following properties:
 
-You know, a venv.
+- DISCORD_TOKEN : Your Discord Application Bot Token (not the OAuth Client Secret)
+- ARKHAMDB: The link to arkhamDB where it should get the cards from. (i.e. https://es.arkhamdb.com or https://arkhamdb.com)
+- BOT_LANGUAGE: The language of the Discord Interactions (it should be one that has a file in /data)
 
-### Install its requirements
+### Docker
 
-    pip install -r requirements.txt
+Docker files come ready if you want to deploy it containerized. Simply running **rebuild.sh** should work.
 
-### Set the enviroment file
+### Manually run python
 
-Create an .env file with the following contents:
-    
-- DISCORD_TOKEN : Your Discord Application Token
-- ARKHAMDB: The link to arkhamDB where Sr. Cotorre should get the cards from. (i.e. https://es.arkhamdb.com or https://arkhamdb.com)
-- BOT_LANGUAGE: The language of the Discord Interactions (it should be one that has a file in Sr. Cotorre Data repo)
-
-### Run!
-
-    python bot.py
-
+1. Install its requirements:
+   `pip install -r requirements.txt`
+2. Run:
+   `python bot.py`
