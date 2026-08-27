@@ -147,3 +147,6 @@ cython_debug/
 .replit
 keep_alive.py
 run.sh
+
+# Stats database
+data/stats.db

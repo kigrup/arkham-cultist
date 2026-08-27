@@ -1,0 +1,1 @@
+sqlite3 -header -column data/stats.db "SELECT guild_id, author_id, command, count FROM command_stats ORDER BY count DESC, author_id ASC;"
