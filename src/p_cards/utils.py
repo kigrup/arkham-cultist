@@ -1,30 +1,21 @@
+from config import SLOT_CUSTOM_EMOJIS
 from src.core.formatting import format_text, format_number, color_picker
 from src.core.search import find_by_id
 from src.core.translator import locale as _
 
 
 def format_slot(c):
-    formater = {
-        "Accessory": "<:accessory:923314322606788639>",
-        "Ally": "<:ally:923314296727941132>",
-        "Arcane": "<:arcane:923314241904214077>",
-        "Arcane x2": "<:2arcane:923314267300696104>",
-        "Body": "<:body:923314103970316308>",
-        "Hand": "<:hand:923314022428844072>",
-        "Hand x2": "<:2hand:923314070227124225> ",
-        "Tarot": "<:tarot:923313991839805520>",
-    }
     text = ""
     if "real_slot" in c:
         if c["real_slot"]:
             slots = c["real_slot"].split(". ")
             for slot in slots:
-                text += formater[slot]
+                text += SLOT_CUSTOM_EMOJIS[slot]
     elif "slot" in c:
         if c["slot"]:
             slots = c["slot"].split(". ")
             for slot in slots:
-                text += formater[slot]
+                text += SLOT_CUSTOM_EMOJIS[slot]
 
     return text
 
