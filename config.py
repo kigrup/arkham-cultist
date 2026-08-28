@@ -20,10 +20,6 @@ ARKHAM_BUILD_API = "https://api.arkham.build"
 LANG = os.getenv("BOT_LANGUAGE")
 logging.info(f"Language: {LANG}")
 
-# You can change where the data comes from
-DATA_API = os.getenv("DATA_API")
-logging.info(f"Cotorre Data: {DATA_API}")
-
 SLOT_CUSTOM_EMOJIS = {
     "Accessory": "<:slot_accessory:1542451465371516928>",
     "Ally": "<:slot_ally:1542451482031431720>",
