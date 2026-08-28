@@ -1,58 +1,72 @@
-{"cycles": [
-  {
-    "sufix": "01",
-    "name": "Core Set"
-  },
+{
+  "cycles": [
     {
-    "sufix": "02",
-    "name": "The Dunwich Legacy"
-  },
+      "sufix": "13",
+      "name": "Children of Blood"
+    },
     {
-    "sufix": "03",
-    "name": "The Path to Carcosa"
-  },
+      "sufix": "60",
+      "name": "Investigator Decks"
+    },
     {
-    "sufix": "04",
-    "name": "The Forgotten Age"
-  },
+      "sufix": "12",
+      "name": "Core Set (2026)"
+    },
     {
-    "sufix": "05",
-    "name": "The Circle Undone"
-  },
+      "sufix": "11",
+      "name": "The Drowned City"
+    },
     {
-    "sufix": "06",
-    "name": "The Dream-Eaters"
-  },
+      "sufix": "10",
+      "name": "The Feast of Hemlock Vale"
+    },
     {
-    "sufix": "07",
-    "name": "The Innsmouth Conspiracy"
-  },
+      "sufix": "09",
+      "name": "The Scarlet Keys"
+    },
     {
-    "sufix": "08",
-    "name": "Edge of the Earth"
-  },
-  {
-    "sufix": "09",
-    "name": "The Scarlet Keys"
-  },
-  {
-    "sufix": "10",
-    "name": "The Feast of Hemlock Vale"
-  },
+      "sufix": "08",
+      "name": "Edge of the Earth"
+    },
     {
-    "sufix": "50",
-    "name": "Return to..."
-  },
+      "sufix": "07",
+      "name": "The Innsmouth Conspiracy"
+    },
     {
-    "sufix": "60",
-    "name": "Investigator Starter Decks"
-  },
+      "sufix": "06",
+      "name": "The Dream-Eaters"
+    },
     {
-    "sufix": "90",
-    "name": "Parallel Investigators"
-  },
-  {
-    "sufix": "98",
-    "name": "Books"
-  }
-]}
+      "sufix": "05",
+      "name": "The Circle Undone"
+    },
+    {
+      "sufix": "04",
+      "name": "The Forgotten Age"
+    },
+    {
+      "sufix": "03",
+      "name": "The Path to Carcosa"
+    },
+    {
+      "sufix": "02",
+      "name": "The Dunwich Legacy"
+    },
+    {
+      "sufix": "01",
+      "name": "Core Set"
+    },
+    {
+      "sufix": "50",
+      "name": "Return to..."
+    },
+    {
+      "sufix": "90",
+      "name": "Parallel Investigators"
+    },
+    {
+      "sufix": "98",
+      "name": "Books"
+    }
+  ]
+}
