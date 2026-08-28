@@ -1,6 +1,8 @@
 import logging
 import sys
 
+from src.core.logger import init_logger
+
 from dotenv import load_dotenv
 from interactions import (
     Client,
@@ -44,20 +46,15 @@ from src.core.stats import (
 
 load_dotenv()
 
-logging.basicConfig(
-    level=logging.INFO,
-    format=log_format,
-    stream=sys.stdout,
-)
-
+init_logger()
 init_db()
 bot = Client(token=TOKEN, intents=Intents.DEFAULT)
 
 @listen()
 async def on_ready():
     """Prints on console that the bot it's ready! It also sets the bot's status."""
-    print("El bot está listo! :parrot:")
-    print(f"{bot.owner} es el dueño del bot.")
+    logging.info("El bot está listo! :parrot:")
+    logging.info(f"{bot.owner} es el dueño del bot.")
     # await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,
     #                                                    name="TSK Previews"))
 

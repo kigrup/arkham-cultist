@@ -1,4 +1,5 @@
 from interactions import Embed
+import logging
 
 from src.e_cards.formating import (
     format_act_card_f,
@@ -37,7 +38,7 @@ def resolve_search(r_cards) -> Embed:
             resolve_function = format_player_card
         case _:
             resolve_function = format_general_card
-    print(resolve_function.__name__)
+    logging.info(resolve_function.__name__)
     return resolve_function(r_cards[0])
 
 
