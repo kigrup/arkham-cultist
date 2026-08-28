@@ -18,12 +18,6 @@ from src.response.resolve import resolve_customizable, resolve_search
 from src.who.who import resolve_search_who
 
 
-def refresh_cards():
-    """Refreshes the cards from ArkhamDB"""
-    cards.refresh()
-    return True
-
-
 def look_for_player_card(query: dict):
     """
     Given a query, a list of cards and a keyword function

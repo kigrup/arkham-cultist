@@ -9,7 +9,6 @@ from interactions import (
     Intents,
     SlashContext,
     check,
-    is_owner,
     listen,
     slash_command,
 )
@@ -29,7 +28,6 @@ from src.response.response import (
     look_for_tarot,
     look_for_upgrades,
     look_for_whom,
-    refresh_cards,
 )
 from src.response.slash_options import (
     customizable_card_slash_options,
@@ -260,21 +258,6 @@ async def costumizable_card(ctx: SlashContext, name=""):
     increment_command(ctx.guild_id, ctx.author_id, "ahcustomizable")
     embed, hidden = look_for_customizable_card(query)
     await ctx.send(embeds=embed, ephemeral=hidden)
-
-
-@slash_command(
-    name="refresh",
-    description="Refresca las cartas del bot desde ArkhamDB",
-    scopes=[923302104532156449],  # Special Testing Discord
-)
-@check(is_owner())
-async def refresh_data(ctx: SlashContext):
-    """Reloads data from ArkhamDB"""
-    await ctx.defer()
-    if refresh_cards():
-        await ctx.send("Refrescado!")
-    else:
-        await ctx.send("<:confusedwatermelon:739425223358545952>")
 
 
 bot.start()
