@@ -19,3 +19,7 @@ Docker files come ready if you want to deploy it containerized. Simply running *
    `pip install -r requirements.txt`
 2. Run:
    `python bot.py`
+
+## Custom emojis
+
+This bot shows cards as Discord embeds, which support custom server emojis in the text. The `config.py` file comes preconfigured with these emojis used as icons. If the bot is used in a DM via an App user installation, the default icons will work. If the bot tries to use these emojis in any other server where the user who uploaded the icons is not in, the emojis will just show as text. You can upload your custom emojis to your own private server (free tier will fit all the icons) and replace the current ones in the config.py file. On a Discord message with custom emojis right-click > "Copy Text" gets you the correct syntax with its whole unique id.
