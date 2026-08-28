@@ -56,7 +56,7 @@ TEXT_FORMAT = {
     "[rogue]": "<:rogue:1542179168219832401>",
     "[survivor]": "<:survivor:1542179222691258408>",
     "[neutral]": "<:neutral:1542273761909415986>",
-    "[mythos]": "<:cultist:1542200315825356911>",
+    "[mythos]": "<:mythos:1542851332094824518>",
     "[health]": "<:health:1542454318773305415>",
     "[sanity]": "<:sanity:1542454338147057675>",
     "[per_investigator]": "<:per_invest:1542454703949094973>",
