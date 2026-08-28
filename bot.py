@@ -117,14 +117,14 @@ async def upgrade(ctx: SlashContext, code, deck_type=""):
     options=general_card_slash_options(),  # type: ignore
 )
 async def encounter(
-    ctx: SlashContext,
-    **kwargs,
+    ctx: SlashContext, name="", card_type="", subtitle="", cycle="", traits=""
 ):
     """Handle the /ahe command, it returns encounter cards."""
     # await ctx.defer()
-    logging.info(f"/ahe sent with: {kwargs}")
+    query = dict_of(name, card_type, subtitle, cycle, traits)
+    logging.info(f"/ahe sent with: {query}")
     increment_command(ctx.guild_id, ctx.author_id, "ahe")
-    embed, hidden = look_for_mythos_card(kwargs)
+    embed, hidden = look_for_mythos_card(query)
     await ctx.send(embeds=embed, ephemeral=hidden)
     # await cards_buttons_row(bot, ctx, embed)
 
