@@ -114,7 +114,7 @@ def format_location_card_f(c):
 def format_scenario_card(c):
     name = format_name(c)
     text = f"> {format_card_text(c)}"
-    b_text = f"> {format_card_text(c, 'back_text')}"
+    b_text = f"> {format_card_text(c, 'real_back_text')}"
 
     m_title = name
     m_description = f"{text}\n\n{b_text}"

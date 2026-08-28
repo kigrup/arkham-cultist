@@ -1,8 +1,8 @@
 from interactions import OptionType, SlashCommandChoice, SlashCommandOption
 
-from src.api_interaction.cycle import cycle
 from src.api_interaction.preview import preview
 from src.api_interaction.taboo import taboo
+from src.core.metadata import metadata
 from src.core.cards_db import cards
 from src.core.formatting import format_name
 from src.core.translator import locale as _
@@ -60,8 +60,8 @@ def player_card_slash_options(name_req=False):
             name="cycle",
             description=_("pack_description"),
             choices=[
-                SlashCommandChoice(name=cy["name"], value=cy["sufix"])
-                for cy in cycle.get_cycle_data()
+                SlashCommandChoice(name=cy["real_name"], value=f"{cy['position']:02}")
+                for cy in metadata.get_cycles()
             ],
             type=OptionType.STRING,
             required=False,
@@ -131,8 +131,8 @@ def general_card_slash_options():
             name="cycle",
             description=_("pack_description"),
             choices=[
-                SlashCommandChoice(name=cy["name"], value=cy["sufix"])
-                for cy in cycle.get_cycle_data()
+                SlashCommandChoice(name=cy["real_name"], value=f"{cy['position']:02}")
+                for cy in metadata.get_cycles()
             ],
             type=OptionType.STRING,
             required=False,

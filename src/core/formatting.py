@@ -1,7 +1,8 @@
+import logging
 from interactions import Embed
 
-from config import ARKHAM_DB, TEXT_FORMAT, ARKHAM_BUILD
-from src.api_interaction.cycle import cycle
+from config import TEXT_FORMAT, ARKHAM_BUILD, ARKHAM_BUILD_CDN
+from src.core.metadata import metadata
 from src.core.translator import locale as _
 from src.core.utils import get_code
 
@@ -17,7 +18,7 @@ def create_embed(title: str, description="", c=None, footnote="") -> Embed:
     :return: A Discord embed.
     """
     if c:
-        url = f"{ARKHAM_BUILD}/card/{c['code']}"
+        url = f"{ARKHAM_BUILD}/card/{c["code"]}"
         embed = Embed(
             title=title, description=description, color=color_picker(c), url=url
         )
@@ -52,23 +53,20 @@ def format_set(c: dict) -> str:
     :param c: Card information.
     :return: String with text info.
     """
-    pack_name = ""
-    if 2000 < get_code(c) < 8000:
-        pack_name = cycle.get_cycle_name(c["code"])
-    else:
-        pack_name = c["pack_name"]
+    logging.info(f"format_set({c})")
+    pack_name = metadata.get_pack_name(c["pack_code"])
 
-    if "pack_name" in c and "position" in c:
-        text = f"{pack_name} #{str(c['position'])}"
+    if "position" in c:
+        text = f"{pack_name} #{str(c["position"])}"
         if "encounter_code" in c:
-            text += f": {c['encounter_name']} #{str(c['encounter_position'])}"
+            text += f": {metadata.get_encounter_set_name(c["encounter_code"])} #{str(c["encounter_position"])}"
             if c["quantity"] > 1:
-                text += f"-{str(c['encounter_position'] + c['quantity'] - 1)}"
+                text += f"-{str(c["encounter_position"] + c["quantity"] - 1)}"
         return text
     return _("preview_set")
 
 
-def format_card_text(c: dict, tag="text") -> str:
+def format_card_text(c: dict, tag="real_text") -> str:
     """
     Formats tagged text from a tag in a Card.
 
@@ -136,7 +134,7 @@ def format_vengeance(c: dict) -> str:
 
 def format_number(n) -> str:
     """
-    Formats a number, yes. Some numbers need some formatting.
+    Formats a number. Yes, some numbers need some formatting.
     The only rule for now is that if the number is -2 then the number it's X.
 
     :param n: A number
@@ -156,14 +154,7 @@ def format_faction(c: dict) -> str:
     :param c: A card info.
     :return: A string
     """
-    if "faction3_code" in c:
-        return format_text(
-            f"[{c['faction_code']}][{c['faction2_code']}][{c['faction3_code']}]"
-        )
-    elif "faction2_code" in c:
-        return format_text(f"[{c['faction_code']}][{c['faction2_code']}]")
-    else:
-        return format_text(f"[{c['faction_code']}]")
+    return format_text(f"[{c['faction_code']}]{f"[{c['faction2_code']}]" if "faction2_code" in c else ''}{f"[{c['faction3_code']}]" if "faction3_code" in c else ''}")
 
 
 faction_order = {
@@ -207,15 +198,7 @@ def set_thumbnail_image(c: dict, embed: Embed, back=False) -> None:
     :return: None
     """
     if c:
-        if "imagesrc" in c:
-            if back:
-                if "backimagesrc" in c:
-                    embed.set_thumbnail(url=f"{ARKHAM_DB}{c['backimagesrc']}")
-                else:
-                    embed.set_thumbnail(url=f"{ARKHAM_DB}{c['imagesrc']}")
-            else:
-                embed.set_thumbnail(url=f"{ARKHAM_DB}{c['imagesrc']}")
-
+        embed.set_thumbnail(url=f"{ARKHAM_BUILD_CDN}/{c['code']}{'b' if back else ''}.jpg")
 
 def format_illustrator(c: dict) -> str:
     """
@@ -235,10 +218,7 @@ def format_name(c: dict) -> str:
     :param c:
     :return:
     """
-    if "is_unique" in c:
-        if c["is_unique"]:
-            return f"⚹{c['name']}"
-    return c["name"]
+    return f"{'*' if "is_unique" in c and c["is_unique"] else ''}{c["name"] if "name" in c else c["real_name"]}"
 
 
 def format_subtext(c: dict) -> str:
@@ -247,8 +227,8 @@ def format_subtext(c: dict) -> str:
     :param c:
     :return:
     """
-    if "subname" in c:
-        return f": _{c['subname']}_"
+    if "real_subname" in c or "subname" in c:
+        return f": _{c["subname"] if "subname" in c else c["real_subname"]}_"
     else:
         return ""
 
@@ -291,8 +271,8 @@ def format_traits(c: dict) -> str:
     :param c:
     :return:
     """
-    if "traits" in c:
-        return f"***{c['traits']}***"
+    if "real_traits" in c or "traits" in c:
+        return f"***{c["traits"] if "traits" in c else c["real_traits"]}***"
     return ""
 
 
@@ -302,8 +282,8 @@ def format_flavour(c: dict) -> str:
     :param c:
     :return:
     """
-    if "flavor" in c:
-        return f"_{format_text(c['flavor'])}_\n"
+    if "real_flavor" in c or "flavor" in c:
+        return f"_{format_text(c["flavor"] if "flavor" in c else c["real_flavor"])}_\n"
 
     return ""
 
@@ -315,8 +295,8 @@ def format_customizable(c: dict) -> str:
     :return:
     """
 
-    if "customization_text" in c:
-        return f"{format_text(c['customization_text'])}\n"
+    if "real_customization_text" in c or "customization_text" in c:
+        return f"{format_text(c["customization_text"] if "customization_text" in c else c["real_customization_text"])}\n"
 
     return ""
 
@@ -329,6 +309,6 @@ def format_customizable_note(c: dict) -> str:
     """
 
     if "customization_text" in c:
-        return f"_{_('customization_note')}_\n"
+        return f"_{_("customization_note")}_\n"
 
     return ""

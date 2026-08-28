@@ -2,19 +2,19 @@ import json
 import logging
 import requests
 
-from config import ARKHAM_DB, ARKHAM_BUILD_API
+from config import ARKHAM_BUILD_API
 
 
 def find_deck(code: float, deck_mode) -> dict:
     """Searchs a deck by code in the ArkhamDB API."""
     try:
         code = int(code)
-        link = f"{ARKHAM_BUILD_API}/v1/public/share/{code}{"?type=decklist" if deck_mode == "decklist" else ""}"
+        link = f"{ARKHAM_BUILD_API}/public/share/{code}{"?type=decklist" if deck_mode == "decklist" else ""}"
         req = requests.get(link, timeout=8)
         if req.status_code != 200 and deck_mode:
             return {}
         elif req.status_code != 200:
-            link = f"{ARKHAM_BUILD_API}/v1/public/share/{code}?type=decklist"
+            link = f"{ARKHAM_BUILD_API}/public/share/{code}?type=decklist"
             req = requests.get(link, timeout=8)
             if req.status_code != 200:
                 return {}

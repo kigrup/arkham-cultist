@@ -18,8 +18,8 @@ def format_inv_card_b(c: dict) -> Embed:
     faction = format_faction(c)
     name = format_name(c)
     subname = format_subtext(c)
-    deck_req = text_if("> %s", format_card_text(c, "back_text"))
-    flavour = f"_{format_card_text(c, 'back_flavor')}_"
+    deck_req = text_if("> %s", format_card_text(c, "real_back_text"))
+    flavour = f"_{format_card_text(c, 'real_back_flavor')}_"
     errata_text = errata.format_errata_text(c["code"], back=True)
 
     m_title = f"{faction} {name} {subname}"
@@ -32,8 +32,8 @@ def format_inv_card_b(c: dict) -> Embed:
 def format_location_card_b(c: dict) -> Embed:
     """Format a location card's back side."""
     name = format_name(c)
-    back = text_if("> %s", format_card_text(c, "back_text"))
-    flavour = f"_{format_card_text(c, 'back_flavor')}_"
+    back = text_if("> %s", format_card_text(c, "real_back_text"))
+    flavour = f"_{format_card_text(c, 'real_back_flavor')}_"
 
     m_title = name
     m_description = f"{back}\n\n{flavour}"
@@ -46,9 +46,9 @@ def format_general_card_b(c: dict) -> Embed:
     """Format a general card's back side."""
     name = format_name(c)
     subname = format_subtext(c)
-    back = text_if("> %s", format_card_text(c, "back_text"))
+    back = text_if("> %s", format_card_text(c, "real_back_text"))
     pack = format_set(c)
-    flavour = f"_{format_card_text(c, 'back_flavor')}_"
+    flavour = f"_{format_card_text(c, 'real_back_flavor')}_"
 
     m_title = f"{name} {subname}"
     m_description = f"{flavour}\n\n{back}"
