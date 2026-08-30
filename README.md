@@ -1,6 +1,6 @@
 # Arkham Cultist
 
-Discord bot forked from _Cotorrra_. Fetches Arkham Horror LCG cards, decks and images from [arkham.build](https://arkham.build) and [arkhamdb](https://arkhamdb.com).
+Discord bot forked from _Cotorrra_. Fetches Arkham Horror LCG cards, decks and images from [arkham.build](https://arkham.build).
 
 ## How to run
 
