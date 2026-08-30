@@ -26,7 +26,7 @@ class CardsDB:
             for c in self.ah_player
             if "duplicate_of_code" not in c and not c["faction_code"] == "mythos" # Remove duplicates and mythos cards
         ]
-        self.ah_encounter = [c for c in self.ah_all_cards if "spoiler" in c]
+        self.ah_encounter = [c for c in self.ah_all_cards if "encounter_code" in c]
         self.ah_investigators = [
             c
             for c in self.ah_player
