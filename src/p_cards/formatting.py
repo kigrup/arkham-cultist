@@ -94,7 +94,7 @@ def format_inv_card_f(c):
 
 
 def format_player_card_deck(c, qty=0, taboo_info=""):
-    name = c["name"]
+    name = c["real_name"]
     level = taboo.format_xp(c, taboo_info)
     faction = format_faction(c)
     quantity = f"x{str(qty)}" if qty > 1 else ""
