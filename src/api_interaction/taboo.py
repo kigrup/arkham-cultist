@@ -87,7 +87,7 @@ class Taboo:
                 taboo_exceptional = taboo_info["exceptional"]
 
         if "xp" in c:
-            if c["myriad"] or "Myriad." in c["real_text"]:
+            if "myriad" in c or "Myriad." in c["real_text"]:
                 return c["xp"] + chain
             if c["exceptional"] or taboo_exceptional:
                 # Aunque debería haber 1 en el mazo...
