@@ -1,4 +1,5 @@
 import sqlite3
+import logging
 
 DB_PATH = "data/stats.db"
 
@@ -34,9 +35,15 @@ def init_db():
         """)
 
 
-def increment_command(guild_id: str, author_id: str, command: str):
+def increment_command(guild_id: str, author_id: str, command: str, *, query=None, code=None, deck_type=None, name=None, timing=None):
     if not guild_id:
         guild_id="None"
+    
+    logging.info(f"User {author_id} sent in {"a DM" if guild_id=="None" else guild_id} command {command} with:")
+    parameters = {"query": query, "code": code, "deck_type": deck_type, "name": name, "timing": timing}
+    for key, value in parameters.items():
+        if (value):
+            logging.info(f"{key}: {value}")
     
     with sqlite3.connect(DB_PATH) as db:
         db.execute("""
