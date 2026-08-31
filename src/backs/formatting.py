@@ -19,7 +19,7 @@ def format_inv_card_b(c: dict, guild_id="None") -> Embed:
     name = format_name(c)
     subname = format_subtext(c)
     deck_req = text_if("> %s", format_card_text(c, "real_back_text", guild_id))
-    flavour = f"_{format_card_text(c, 'real_back_flavor')}_"
+    flavour = f"_{format_card_text(c, 'real_back_flavor', guild_id)}_"
     errata_text = errata.format_errata_text(c["code"], back=True, guild_id=guild_id)
 
     m_title = f"{faction} {name} {subname}"

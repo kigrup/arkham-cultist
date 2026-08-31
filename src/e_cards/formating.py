@@ -31,7 +31,7 @@ def format_enemy_card(c, guild_id="None"):
     c_type = format_type(c)
     stats = format_enemy_stats(c, guild_id)
     traits = text_if("%s\n", format_traits(c))
-    text = text_if("> %s\n", format_card_text(c))
+    text = text_if("> %s\n", format_card_text(c, guild_id=guild_id))
     flavour = text_if("%s\n\n", format_flavour(c, guild_id))
     attack = text_if("%s\n", format_attack(c, guild_id))
     victory = text_if("%s\n", format_victory(c))
@@ -61,7 +61,7 @@ def format_act_card_f(c, guild_id="None"):
     stage = f"***{_('act')} {c['stage']}***"
     flavour = text_if("%s\n\n", format_flavour(c, guild_id))
     clues = format_clues(c, guild_id)
-    text = text_if("> %s\n", format_card_text(c))
+    text = text_if("> %s\n", format_card_text(c, guild_id=guild_id))
     errata_text = errata.format_errata_text(c["code"], guild_id=guild_id)
 
     m_title = name
@@ -74,7 +74,7 @@ def format_agenda_card_f(c, guild_id="None"):
     name = format_name(c)
     stage = f"***{_('agenda')} {c['stage']}***"
     flavour = text_if("%s\n\n", format_flavour(c, guild_id))
-    text = text_if("> %s\n", format_card_text(c))
+    text = text_if("> %s\n", format_card_text(c, guild_id=guild_id))
     errata_text = errata.format_errata_text(c["code"], guild_id=guild_id)
     doom = format_text("[doom] % s" % (c["doom"] if "doom" in c else " - "), guild_id)
 
@@ -89,7 +89,7 @@ def format_location_card_f(c, guild_id="None"):
     c_type = format_type(c)
     subtext = format_subtext(c)
     traits = text_if("%s\n", format_traits(c))
-    text = text_if("> %s\n", format_card_text(c))
+    text = text_if("> %s\n", format_card_text(c, guild_id=guild_id))
     flavour = text_if("%s\n\n", format_flavour(c, guild_id))
     location_data = format_location_data(c, guild_id)
     victory = text_if("%s\n", format_victory(c))
@@ -127,7 +127,7 @@ def format_treachery_card(c, guild_id="None"):
     faction = format_faction(c, guild_id)
     c_type = format_type(c)
     traits = format_traits(c)
-    text = f"> {format_card_text(c)} \n"
+    text = f"> {format_card_text(c, guild_id=guild_id)} \n"
     flavour = text_if("%s\n\n", format_flavour(c, guild_id))
     errata_text = errata.format_errata_text(c["code"], guild_id=guild_id)
     victory = text_if("%s\n", format_victory(c))
@@ -151,7 +151,7 @@ def format_treachery_card(c, guild_id="None"):
 def format_general_card(c, guild_id="None"):
     name = format_name(c)
     subname = format_subtext(c)
-    text = format_card_text(c)
+    text = format_card_text(c, guild_id=guild_id)
     flavour = text_if("%s\n\n", format_flavour(c, guild_id))
 
     m_title = f"{name}{subname}"

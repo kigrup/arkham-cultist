@@ -18,7 +18,7 @@ def format_faq(c, guild_id="None"):
     subtext = format_subtext(c)
     faction = format_faction(c, guild_id)
     level = taboo.format_xp(c)
-    text = f"> {format_card_text(c)}"
+    text = f"> {format_card_text(c, guild_id=guild_id)}"
     faq = format_faq_text(c["code"], back=False, guild_id)
 
     title = f"{faction} {name}{subtext} {level}"

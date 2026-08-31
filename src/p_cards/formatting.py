@@ -74,7 +74,7 @@ def format_inv_card_f(c, guild_id="None"):
     subname = format_subtext(c)
     skills = format_inv_skills(c, guild_id)
     health_sanity = text_if("%s\n", format_health_sanity(c, guild_id))
-    ability = text_if("> %s", format_card_text(c, guild_id))
+    ability = text_if("> %s", format_card_text(c, guild_id=guild_id))
     traits = format_traits(c)
     taboo_text = taboo.format_taboo_text(c["code"], guild_id)
     errata_text = errata.format_errata_text(c["code"], guild_id=guild_id)

@@ -117,6 +117,7 @@ def initialize_emojis():
                     SLOT_CUSTOM_EMOJIS[guild_id][tag] = CUSTOM_EMOJIS[guild_id][tag]
                 elif tag in TEXT_FORMAT[guild_id]:
                     TEXT_FORMAT[guild_id][tag] = CUSTOM_EMOJIS[guild_id][tag]
+    logging.info(f"Finished initialize_emojis")
 
 try:
     initialize_emojis()
