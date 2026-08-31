@@ -49,11 +49,8 @@ bot = Client(token=TOKEN, intents=Intents.DEFAULT)
 
 @listen()
 async def on_ready():
-    """Prints on console that the bot it's ready! It also sets the bot's status."""
-    logging.info("El bot está listo! :parrot:")
-    logging.info(f"{bot.owner} es el dueño del bot.")
-    # await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,
-    #                                                    name="TSK Previews"))
+    logging.info("Bot is ready.")
+    logging.info(f"{bot.owner} is the owner of the bot")
 
 
 @slash_command(
