@@ -43,6 +43,7 @@ from src.core.stats import (
     init_db,
     increment_command
 )
+from src.core.errors import handle_command_error
 
 init_db()
 bot = Client(token=TOKEN, intents=Intents.DEFAULT)
@@ -69,12 +70,13 @@ async def player_card(
     traits="",
 ):
     """Handles the /ah slash command, this command returns' player cards."""
-    query = dict_of(name, level, faction, extras, subtitle, cycle, traits)
-    increment_command(ctx.guild_id, ctx.author_id, "ah", query=query)
-    embed, hidden = look_for_player_card(query, str(ctx.guild_id))
-    await ctx.send(embeds=embed, ephemeral=hidden)
-    # await cards_buttons_row(bot, ctx, embed)
-
+    try:
+        query = dict_of(name, level, faction, extras, subtitle, cycle, traits)
+        increment_command(ctx.guild_id, ctx.author_id, "ah", query=query)
+        embed, hidden = look_for_player_card(query, str(ctx.guild_id))
+        await ctx.send(embeds=embed, ephemeral=hidden)
+    except Exception as exc:
+        await handle_command_error(ctx, exc, bot.owner)
 
 @slash_command(
     name="ahdeck",
