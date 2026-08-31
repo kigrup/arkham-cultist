@@ -36,7 +36,7 @@ def init_db():
 
 def increment_command(guild_id: str, author_id: str, command: str):
     if not guild_id:
-        guild_id = "None"
+        guild_id="None"
     
     with sqlite3.connect(DB_PATH) as db:
         db.execute("""

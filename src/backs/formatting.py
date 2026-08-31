@@ -13,14 +13,14 @@ from src.core.utils import text_if
 from src.api_interaction.errata import errata
 
 
-def format_inv_card_b(c: dict) -> Embed:
+def format_inv_card_b(c: dict, guild_id="None") -> Embed:
     """Format an investigator card's back side."""
-    faction = format_faction(c)
+    faction = format_faction(c, guild_id)
     name = format_name(c)
     subname = format_subtext(c)
-    deck_req = text_if("> %s", format_card_text(c, "real_back_text"))
+    deck_req = text_if("> %s", format_card_text(c, "real_back_text", guild_id))
     flavour = f"_{format_card_text(c, 'real_back_flavor')}_"
-    errata_text = errata.format_errata_text(c["code"], back=True)
+    errata_text = errata.format_errata_text(c["code"], back=True, guild_id=guild_id)
 
     m_title = f"{faction} {name} {subname}"
     m_description = f"{deck_req}\n\n{flavour}\n\n{errata_text}"
@@ -29,11 +29,11 @@ def format_inv_card_b(c: dict) -> Embed:
     return embed
 
 
-def format_location_card_b(c: dict) -> Embed:
+def format_location_card_b(c: dict, guild_id="None") -> Embed:
     """Format a location card's back side."""
     name = format_name(c)
-    back = text_if("> %s", format_card_text(c, "real_back_text"))
-    flavour = f"_{format_card_text(c, 'real_back_flavor')}_"
+    back = text_if("> %s", format_card_text(c, "real_back_text", guild_id))
+    flavour = f"_{format_card_text(c, 'real_back_flavor', guild_id)}_"
 
     m_title = name
     m_description = f"{back}\n\n{flavour}"
@@ -42,13 +42,13 @@ def format_location_card_b(c: dict) -> Embed:
     return embed
 
 
-def format_general_card_b(c: dict) -> Embed:
+def format_general_card_b(c: dict, guild_id="None") -> Embed:
     """Format a general card's back side."""
     name = format_name(c)
     subname = format_subtext(c)
-    back = text_if("> %s", format_card_text(c, "real_back_text"))
+    back = text_if("> %s", format_card_text(c, "real_back_text", guild_id))
     pack = format_set(c)
-    flavour = f"_{format_card_text(c, 'real_back_flavor')}_"
+    flavour = f"_{format_card_text(c, 'real_back_flavor', guild_id)}_"
 
     m_title = f"{name} {subname}"
     m_description = f"{flavour}\n\n{back}"

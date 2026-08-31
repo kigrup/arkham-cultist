@@ -24,21 +24,21 @@ from src.api_interaction.errata import errata
 from src.core.translator import locale as _
 
 
-def format_enemy_card(c):
+def format_enemy_card(c, guild_id="None"):
     name = format_name(c)
     subtext = format_subtext(c)
-    faction = format_faction(c)
+    faction = format_faction(c, guild_id)
     c_type = format_type(c)
-    stats = format_enemy_stats(c)
+    stats = format_enemy_stats(c, guild_id)
     traits = text_if("%s\n", format_traits(c))
     text = text_if("> %s\n", format_card_text(c))
-    flavour = text_if("%s\n\n", format_flavour(c))
-    attack = text_if("%s\n", format_attack(c))
+    flavour = text_if("%s\n\n", format_flavour(c, guild_id))
+    attack = text_if("%s\n", format_attack(c, guild_id))
     victory = text_if("%s\n", format_victory(c))
     vengeance = text_if("%s\n", format_vengeance(c))
-    errata_text = errata.format_errata_text(c["code"])
+    errata_text = errata.format_errata_text(c["code"], guild_id=guild_id)
 
-    taboo_text = taboo.format_taboo_text(c["code"])
+    taboo_text = taboo.format_taboo_text(c["code"], guild_id=guild_id)
     m_title = f"{faction} {name}{subtext}"
     m_description = (
         f"{c_type}\n"
@@ -56,13 +56,13 @@ def format_enemy_card(c):
     return create_embed(m_title, m_description, c, m_footnote)
 
 
-def format_act_card_f(c):
+def format_act_card_f(c, guild_id="None"):
     name = format_name(c)
     stage = f"***{_('act')} {c['stage']}***"
-    flavour = text_if("%s\n\n", format_flavour(c))
-    clues = format_clues(c)
+    flavour = text_if("%s\n\n", format_flavour(c, guild_id))
+    clues = format_clues(c, guild_id)
     text = text_if("> %s\n", format_card_text(c))
-    errata_text = errata.format_errata_text(c["code"])
+    errata_text = errata.format_errata_text(c["code"], guild_id=guild_id)
 
     m_title = name
     m_description = f"{stage}\n{flavour}{text}{clues}\n{errata_text}"
@@ -70,13 +70,13 @@ def format_act_card_f(c):
     return create_embed(m_title, m_description, c, m_footnote)
 
 
-def format_agenda_card_f(c):
+def format_agenda_card_f(c, guild_id="None"):
     name = format_name(c)
     stage = f"***{_('agenda')} {c['stage']}***"
-    flavour = text_if("%s\n\n", format_flavour(c))
+    flavour = text_if("%s\n\n", format_flavour(c, guild_id))
     text = text_if("> %s\n", format_card_text(c))
-    errata_text = errata.format_errata_text(c["code"])
-    doom = format_text("[doom] % s" % (c["doom"] if "doom" in c else " - "))
+    errata_text = errata.format_errata_text(c["code"], guild_id=guild_id)
+    doom = format_text("[doom] % s" % (c["doom"] if "doom" in c else " - "), guild_id)
 
     m_title = name
     m_description = f"{stage}\n{flavour}{text}{doom}\n{errata_text}"
@@ -84,17 +84,17 @@ def format_agenda_card_f(c):
     return create_embed(m_title, m_description, c, m_footnote)
 
 
-def format_location_card_f(c):
+def format_location_card_f(c, guild_id="None"):
     name = format_name(c)
     c_type = format_type(c)
     subtext = format_subtext(c)
     traits = text_if("%s\n", format_traits(c))
     text = text_if("> %s\n", format_card_text(c))
-    flavour = text_if("%s\n\n", format_flavour(c))
-    location_data = format_location_data(c)
+    flavour = text_if("%s\n\n", format_flavour(c, guild_id))
+    location_data = format_location_data(c, guild_id)
     victory = text_if("%s\n", format_victory(c))
     vengeance = text_if("%s\n", format_vengeance(c))
-    errata_text = errata.format_errata_text(c["code"], back=True)
+    errata_text = errata.format_errata_text(c["code"], back=True, guild_id=guild_id)
 
     m_title = f"{name}{subtext}"
     m_description = (
@@ -111,10 +111,10 @@ def format_location_card_f(c):
     return create_embed(m_title, m_description, c, m_footnote)
 
 
-def format_scenario_card(c):
+def format_scenario_card(c, guild_id="None"):
     name = format_name(c)
-    text = f"> {format_card_text(c)}"
-    b_text = f"> {format_card_text(c, 'real_back_text')}"
+    text = f"> {format_card_text(c, guild_id=guild_id)}"
+    b_text = f"> {format_card_text(c, 'real_back_text', guild_id=guild_id)}"
 
     m_title = name
     m_description = f"{text}\n\n{b_text}"
@@ -122,18 +122,18 @@ def format_scenario_card(c):
     return create_embed(m_title, m_description, c, m_footnote)
 
 
-def format_treachery_card(c):
+def format_treachery_card(c, guild_id="None"):
     name = format_name(c)
-    faction = format_faction(c)
+    faction = format_faction(c, guild_id)
     c_type = format_type(c)
     traits = format_traits(c)
     text = f"> {format_card_text(c)} \n"
-    flavour = text_if("%s\n\n", format_flavour(c))
-    errata_text = errata.format_errata_text(c["code"])
+    flavour = text_if("%s\n\n", format_flavour(c, guild_id))
+    errata_text = errata.format_errata_text(c["code"], guild_id=guild_id)
     victory = text_if("%s\n", format_victory(c))
     vengeance = text_if("%s\n", format_vengeance(c))
     m_title = f"{faction} {name}"
-    taboo_text = taboo.format_taboo_text(c["code"])
+    taboo_text = taboo.format_taboo_text(c["code"], guild_id)
     m_description = (
         f"{c_type}\n"
         f"{traits}\n\n"
@@ -148,11 +148,11 @@ def format_treachery_card(c):
     return create_embed(m_title, m_description, c, m_footnote)
 
 
-def format_general_card(c):
+def format_general_card(c, guild_id="None"):
     name = format_name(c)
     subname = format_subtext(c)
     text = format_card_text(c)
-    flavour = text_if("%s\n\n", format_flavour(c))
+    flavour = text_if("%s\n\n", format_flavour(c, guild_id))
 
     m_title = f"{name}{subname}"
     m_description = f"{flavour}{text}"

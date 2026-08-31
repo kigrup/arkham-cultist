@@ -30,14 +30,16 @@ def create_embed(title: str, description="", c=None, footnote="") -> Embed:
     return embed
 
 
-def format_text(text: str) -> str:
+def format_text(text: str, guild_id="None") -> str:
     """
     Replaces certain text tags in a text to its matching emojis in Discord.
 
     :param text: The text
+    :param guild_id: the Discord server id where the formatting is for (to allow per server customization)
     :return: A new formatted text
     """
-    for key, value in TEXT_FORMAT.items():
+    guild_dict = TEXT_FORMAT[guild_id] if guild_id in TEXT_FORMAT else TEXT_FORMAT["None"]
+    for key, value in guild_dict.items():
         text = text.replace(key, value)
 
     return text
@@ -53,7 +55,6 @@ def format_set(c: dict) -> str:
     :param c: Card information.
     :return: String with text info.
     """
-    logging.info(f"format_set({c})")
     pack_name = metadata.get_pack_name(c["pack_code"])
 
     if "position" in c:
@@ -66,7 +67,7 @@ def format_set(c: dict) -> str:
     return _("preview_set")
 
 
-def format_card_text(c: dict, tag="real_text") -> str:
+def format_card_text(c: dict, tag="real_text", guild_id="None") -> str:
     """
     Formats tagged text from a tag in a Card.
 
@@ -76,7 +77,7 @@ def format_card_text(c: dict, tag="real_text") -> str:
     """
     formatting = {"\n": "\n> "}
     if tag in c:
-        text = format_text(c[tag])
+        text = format_text(c[tag], guild_id)
     else:
         return ""
 
@@ -146,7 +147,7 @@ def format_number(n) -> str:
         return str(n)
 
 
-def format_faction(c: dict) -> str:
+def format_faction(c: dict, guild_id="None") -> str:
     """
     Formats the different classes that could be in a card.
     Thanks EotE.
@@ -154,7 +155,7 @@ def format_faction(c: dict) -> str:
     :param c: A card info.
     :return: A string
     """
-    return format_text(f"[{c['faction_code']}]{f"[{c['faction2_code']}]" if "faction2_code" in c else ''}{f"[{c['faction3_code']}]" if "faction3_code" in c else ''}")
+    return format_text(f"[{c['faction_code']}]{f"[{c['faction2_code']}]" if "faction2_code" in c else ''}{f"[{c['faction3_code']}]" if "faction3_code" in c else ''}", guild_id)
 
 
 faction_order = {
@@ -276,19 +277,19 @@ def format_traits(c: dict) -> str:
     return ""
 
 
-def format_flavour(c: dict) -> str:
+def format_flavour(c: dict, guild_id="None") -> str:
     """
     Formats the card's flavor text, if any.
     :param c:
     :return:
     """
     if "real_flavor" in c or "flavor" in c:
-        return f"_{format_text(c["flavor"] if "flavor" in c else c["real_flavor"])}_\n"
+        return f"_{format_text(c["flavor"] if "flavor" in c else c["real_flavor"], guild_id)}_\n"
 
     return ""
 
 
-def format_customizable(c: dict) -> str:
+def format_customizable(c: dict, guild_id="None") -> str:
     """
     Format the costumization upgrades, if any.
     :param c:
@@ -296,7 +297,7 @@ def format_customizable(c: dict) -> str:
     """
 
     if "real_customization_text" in c or "customization_text" in c:
-        return f"{format_text(c["customization_text"] if "customization_text" in c else c["real_customization_text"])}\n"
+        return f"{format_text(c["customization_text"] if "customization_text" in c else c["real_customization_text"], guild_id)}\n"
 
     return ""
 

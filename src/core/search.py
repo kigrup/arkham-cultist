@@ -15,7 +15,6 @@ def card_search(query, cards, keyword_func, allow_empty=False):
     :param keyword_func: A keyword function
     :return:
     """
-    logging.info(f"card_search({query})")
     f_cards = cards.copy()
 
     if "subtitle" in query and query["subtitle"]:

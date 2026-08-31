@@ -15,14 +15,14 @@ class Timings:
         """Returns the timings data from the JSON file."""
         return self.timings
 
-    def find_formatted_timing(self, query):
+    def find_formatted_timing(self, query, guild_id="None"):
         """Formats the timing information into an embed."""
         timing = self.timings["framework"][query]
         name, text = next(iter(timing.items()))
         title = f"**{name}**"
         description = ">>> "
         for line in text:
-            description += f"{format_text(line)}\n"
+            description += f"{format_text(line, guild_id)}\n"
         embed = create_embed(title=title, description=description)
         return embed
 

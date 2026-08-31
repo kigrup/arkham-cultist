@@ -2,7 +2,7 @@ from interactions import Embed
 from src.core.formatting import format_text
 
 
-def format_rule(rule):
+def format_rule(rule, guild_id="None"):
     title = f"**{rule['title']}**"
-    description = "%s" % format_text(rule["text"])
+    description = "%s" % format_text(rule["text"], guild_id)
     return Embed(title=title, description=description, color=0x966E50)

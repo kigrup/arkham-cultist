@@ -18,7 +18,7 @@ from src.response.resolve import resolve_customizable, resolve_search
 from src.who.who import resolve_search_who
 
 
-def look_for_player_card(query: dict):
+def look_for_player_card(query: dict, guild_id="None"):
     """
     Given a query, a list of cards and a keyword function
     returns a embed containing the information of a card.
@@ -29,11 +29,11 @@ def look_for_player_card(query: dict):
     if not r_cards:
         return create_embed(_("card_not_found")), True
 
-    embed = resolve_search(r_cards)
+    embed = resolve_search(r_cards, guild_id)
     return embed, False
 
 
-def look_for_mythos_card(query: dict):
+def look_for_mythos_card(query: dict, guild_id="None"):
     """
     Given a query, a list of cards and a keyword function
     returns a embed containing the information of a mythos card.
@@ -45,11 +45,11 @@ def look_for_mythos_card(query: dict):
     if not r_cards:
         return create_embed(_("card_not_found")), True
 
-    embed = resolve_search(r_cards)
+    embed = resolve_search(r_cards, guild_id)
     return embed, False
 
 
-def look_for_card_back(query: dict):
+def look_for_card_back(query: dict, guild_id="None"):
     """
     Given a query, a list of cards and a keyword function
     returns a embed containing the information of a back of a card.
@@ -61,11 +61,11 @@ def look_for_card_back(query: dict):
     if not r_cards:
         return create_embed(_("card_not_found")), True
 
-    embed = resolve_back_search(r_cards)
+    embed = resolve_back_search(r_cards, guild_id)
     return embed, False
 
 
-def look_for_deck(code, deck_type):
+def look_for_deck(code, deck_type, guild_id="None"):
     """
     Given a ArkhamDB deckcode, returns a Discord.Embed that contains the information of that deck.
     :param deck_type:
@@ -77,11 +77,11 @@ def look_for_deck(code, deck_type):
         return create_embed(_("deck_not_found")), True
 
     deck_info = extract_deck_info(deck, cards.get_all_cards())
-    embed = format_deck(deck, deck_info)
+    embed = format_deck(deck, deck_info, guild_id)
     return embed, False
 
 
-def look_for_upgrades(code, deck_mode):
+def look_for_upgrades(code, deck_mode, guild_id="None"):
     """
     Given a ArkhamDB deckcode, returns a Discord.Embed that
     contains the upgrade information of that deck if any.
@@ -97,10 +97,10 @@ def look_for_upgrades(code, deck_mode):
         return create_embed(_("upgrade_not_found")), True
 
     info = check_upgrade_rules(deck2, deck1, cards.get_all_cards())
-    return format_upgraded_deck(deck1, info), False
+    return format_upgraded_deck(deck1, info, guild_id), False
 
 
-def look_for_tarot(query):
+def look_for_tarot(query, guild_id="None"):
     """
     Given a query, returns a embed containing a tarot card of the game.
     If the query is empty, returns a random tarot card.
@@ -116,7 +116,7 @@ def look_for_tarot(query):
     return format_tarot(search), False
 
 
-def look_for_list_of_cards(query):
+def look_for_list_of_cards(query, guild_id="None"):
     """Given a query, returns a list of cards that match the query.
 
     Arguments:
@@ -136,7 +136,7 @@ def look_for_list_of_cards(query):
     return embed, False
 
 
-def look_for_random_player_card(query):
+def look_for_random_player_card(query, guild_id="None"):
     """Given a query, returns a embed containing a random card.
 
     Arguments:
@@ -150,11 +150,11 @@ def look_for_random_player_card(query):
         return create_embed(_("card_not_found")), True
 
     card = random.choice(r_cards)
-    embed = resolve_search([card])
+    embed = resolve_search([card], guild_id)
     return embed, False
 
 
-def look_for_framework(query):
+def look_for_framework(query, guild_id="None"):
     """Given a query, returns a embed containing a timing of the game.
 
     Arguments:
@@ -163,11 +163,11 @@ def look_for_framework(query):
     Returns:
         A Discord.Embed with the timing of the query
     """
-    embed = timings.find_formatted_timing(query)
+    embed = timings.find_formatted_timing(query, guild_id)
     return embed, False
 
 
-def look_for_preview_player_card(query: dict):
+def look_for_preview_player_card(query: dict, guild_id="None"):
     """
     Given a query,
     returns a embed containing the information of a card.
@@ -181,13 +181,13 @@ def look_for_preview_player_card(query: dict):
                 for c in preview.get_preview_data()
                 if c["code"] == query["card" + str(i)]
             ]
-            embed = resolve_search(r_cards)
+            embed = resolve_search(r_cards, guild_id)
             return embed, False
 
     return create_embed(_("card_not_found")), True
 
 
-def look_for_whom(query: dict):
+def look_for_whom(query: dict, guild_id="None"):
     """
     Given a query, returns an embed containing all the investigators who can take a card
     :param query:
@@ -197,11 +197,11 @@ def look_for_whom(query: dict):
     if not r_cards:
         return create_embed(_("card_not_found")), True
 
-    embed = resolve_search_who(r_cards)
+    embed = resolve_search_who(r_cards, guild_id)
     return embed, False
 
 
-def look_for_customizable_card(query: dict):
+def look_for_customizable_card(query: dict, guild_id="None"):
     """
     Given a query, returns an embed a the upgrade sheet of a customizable card
     :param query:
@@ -212,5 +212,5 @@ def look_for_customizable_card(query: dict):
     if not r_cards:
         return create_embed(_("card_not_found")), True
 
-    embed = resolve_customizable(r_cards)
+    embed = resolve_customizable(r_cards, guild_id)
     return embed, False

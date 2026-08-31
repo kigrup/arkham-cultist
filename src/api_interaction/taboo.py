@@ -124,7 +124,7 @@ class Taboo:
             text = ""
         return text
 
-    def format_taboo_text(self, card_id):
+    def format_taboo_text(self, card_id, guild_id="None"):
         """Formats the taboo text of a card."""
         text = f"> **{_('taboo_title')}:** _({self.get_taboo_version()})_\n"
         if self.is_in_taboo(card_id):
@@ -136,7 +136,7 @@ class Taboo:
                 else:
                     text += f"> {_('taboo_unchained')}: {card['xp']} {_('xp')}\n"
             if "text" in card:
-                text += f"> {format_text(card['text'])} \n"
+                text += f"> {format_text(card['text'], guild_id)} \n"
             text += "\n"
             return text
 

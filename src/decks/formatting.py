@@ -5,29 +5,29 @@ from src.core.translator import locale as _
 from src.p_cards.formatting import format_player_card_deck
 
 
-def format_assets(arr, key: str, taboo_info: str) -> str:
+def format_assets(arr, key: str, taboo_info: str, guild_id="None") -> str:
     text = ""
     if arr:
         text += f"_{_(key)}:_"
         aux = []
         for c, q in arr:
-            aux.append(format_player_card_deck(c, q, taboo_info))
+            aux.append(format_player_card_deck(c, q, taboo_info, guild_id))
         aux = sorted(aux)
         for c in aux:
             text += "\n%s" % c[2:]
     return text
 
 
-def format_all_assets(info: dict, taboo_info: str):
+def format_all_assets(info: dict, taboo_info: str, guild_id="None"):
     types = ["assets", "assets_permanents"]
     text = ""
     for key in types:
         if info[key]:
-            text += "%s\n" % format_assets(info[key], key, taboo_info)
+            text += "%s\n" % format_assets(info[key], key, taboo_info, guild_id)
     return text
 
 
-def format_deck(deck, info):
+def format_deck(deck, info, guild_id="None"):
     m_title = deck["name"]
 
     investigator = f"{_('investigator')}: **{deck['investigator_name']}**"
@@ -39,22 +39,22 @@ def format_deck(deck, info):
 
     if info["assets_q"] > 0:
         assets = f"{_('assets')}: ({str(info['assets_q'])})"
-        assets_cards = format_all_assets(info, info["taboo_id"])
+        assets_cards = format_all_assets(info, info["taboo_id"], guild_id)
         m_description += f"**{assets}**\n{assets_cards}\n"
 
     if info["events_q"] > 0:
         events = f"{_('events')}: ({str(info['events_q'])})"
-        events_cards = format_list_of_cards(info["events"], info["taboo_id"])
+        events_cards = format_list_of_cards(info["events"], info["taboo_id"], guild_id)
         m_description += f"**{events}**\n{events_cards}\n"
 
     if info["skills_q"] > 0:
         skills = f"{_('skills')}: ({str(info['skills_q'])})"
-        skills_cards = format_list_of_cards(info["skills"], info["taboo_id"])
+        skills_cards = format_list_of_cards(info["skills"], info["taboo_id"], guild_id)
         m_description += f"**{skills}**\n{skills_cards}\n"
 
     if info["treachery_q"] > 0:
         treachery = f"{_('treacheries/enemies')}: ({str(info['treachery_q'])})"
-        treachery_cards = format_list_of_cards(info["treachery"], info["taboo_id"])
+        treachery_cards = format_list_of_cards(info["treachery"], info["taboo_id"], guild_id)
         m_description += f"**{treachery}**\n{treachery_cards}\n"
     embed = Embed(
         title=m_title, description=m_description, color=info["color"], url=url
@@ -63,7 +63,7 @@ def format_deck(deck, info):
     return embed
 
 
-def format_upgraded_deck(deck1, info):
+def format_upgraded_deck(deck1, info, guild_id="None"):
     m_title = deck1["name"]
 
     investigator = f"{_('investigator')}: **{deck1['investigator_name']}**"
@@ -78,21 +78,21 @@ def format_upgraded_deck(deck1, info):
     if len(info["buys_in"]) > 0:
         embed.add_field(
             name=f"{_('added_cards')}:",
-            value=format_list_of_cards_upgr(info["buys_in"], info["taboo_id"]),
+            value=format_list_of_cards_upgr(info["buys_in"], info["taboo_id"], guild_id),
             inline=True,
         )
 
     if len(info["buys_out"]) > 0:
         embed.add_field(
             name=f"{_('removed_cards')}:",
-            value=format_list_of_cards_upgr(info["buys_out"], info["taboo_id"]),
+            value=format_list_of_cards_upgr(info["buys_out"], info["taboo_id"], guild_id),
             inline=True,
         )
 
     return embed
 
 
-def format_list_of_cards_upgr(arr, taboo_info):
+def format_list_of_cards_upgr(arr, taboo_info, guild_id="None"):
     copy_arr = arr.copy()
     array = []
 
@@ -103,7 +103,7 @@ def format_list_of_cards_upgr(arr, taboo_info):
             q += 1
             copy_arr.remove(card)
 
-        text = format_player_card_deck(card, q, taboo_info)
+        text = format_player_card_deck(card, q, taboo_info, guild_id)
         array.append(text)
     array = sorted(array)
     text = ""
@@ -112,11 +112,11 @@ def format_list_of_cards_upgr(arr, taboo_info):
     return text
 
 
-def format_list_of_cards(arr, taboo_info="", sort=True):
+def format_list_of_cards(arr, taboo_info="", sort=True, guild_id="None"):
     text = ""
     aux = []
     for c, q in arr:
-        aux.append(format_player_card_deck(c, q, taboo_info))
+        aux.append(format_player_card_deck(c, q, taboo_info, guild_id))
     if sort:
         aux = sorted(aux)
     for c in aux:

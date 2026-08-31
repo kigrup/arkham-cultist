@@ -34,18 +34,18 @@ class Errata:
                 return card
         return {}
 
-    def format_errata_text(self, card_id, back=False):
+    def format_errata_text(self, card_id, back=False, guild_id="None"):
         """Formats the errata text into a markdown string."""
         text = ""
         if self.has_errata(card_id):
             card = self.get_errata_card(card_id)
             if back and ("real_back_text" in card):
                 text += f"> **{_('errata_title')}**:\n> %s \n\n" % format_card_text(
-                    card, "real_back_text"
+                    card, "real_back_text", guild_id
                 )
             elif "text" in card:
                 text += f"> **{_('errata_title')}**:\n> %s \n\n" % format_card_text(
-                    card, "real_text"
+                    card, "real_text", guild_id
                 )
             return text
 

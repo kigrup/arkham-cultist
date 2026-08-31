@@ -2,6 +2,9 @@ import logging
 import sys
 
 from src.core.logger import init_logger
+init_logger()
+
+from config import TOKEN
 
 from dotenv import load_dotenv
 from interactions import (
@@ -14,7 +17,6 @@ from interactions import (
 )
 from sorcery import dict_of
 
-from config import TOKEN, log_format
 from src.core.translator import locale as _
 from src.response.response import (
     look_for_card_back,
@@ -42,9 +44,6 @@ from src.core.stats import (
     increment_command
 )
 
-load_dotenv()
-
-init_logger()
 init_db()
 bot = Client(token=TOKEN, intents=Intents.DEFAULT)
 
@@ -76,7 +75,7 @@ async def player_card(
     query = dict_of(name, level, faction, extras, subtitle, cycle, traits)
     logging.info(f"/ah sent with: {query}")
     increment_command(ctx.guild_id, ctx.author_id, "ah")
-    embed, hidden = look_for_player_card(query)
+    embed, hidden = look_for_player_card(query, str(ctx.guild_id))
     await ctx.send(embeds=embed, ephemeral=hidden)
     # await cards_buttons_row(bot, ctx, embed)
 
@@ -91,7 +90,7 @@ async def deck(ctx: SlashContext, code, deck_type=""):
     await ctx.defer()
     logging.info(f"/ahdeck sent with: code={code}, type={deck_type}")
     increment_command(ctx.guild_id, ctx.author_id, "ahdeck")
-    embed, _ = look_for_deck(code, deck_type)
+    embed, _ = look_for_deck(code, deck_type, str(ctx.guild_id))
     await ctx.send(embeds=embed)
 
 
@@ -105,7 +104,7 @@ async def upgrade(ctx: SlashContext, code, deck_type=""):
     await ctx.defer()
     logging.info(f"/ahup sent with: code={code}, type={deck_type}")
     increment_command(ctx.guild_id, ctx.author_id, "ahup")
-    embed, _ = look_for_upgrades(code, deck_type)
+    embed, _ = look_for_upgrades(code, deck_type, str(ctx.guild_id))
     await ctx.send(embeds=embed)
 
 
@@ -122,7 +121,7 @@ async def encounter(
     query = dict_of(name, card_type, subtitle, cycle, traits)
     logging.info(f"/ahe sent with: {query}")
     increment_command(ctx.guild_id, ctx.author_id, "ahe")
-    embed, hidden = look_for_mythos_card(query)
+    embed, hidden = look_for_mythos_card(query, str(ctx.guild_id))
     await ctx.send(embeds=embed, ephemeral=hidden)
     # await cards_buttons_row(bot, ctx, embed)
 
@@ -140,7 +139,7 @@ async def back(
     query = dict_of(name, card_type, subtitle, cycle, traits)
     logging.info(f"/ahb sent with: {query}")
     increment_command(ctx.guild_id, ctx.author_id, "ahb")
-    embed, hidden = look_for_card_back(query)
+    embed, hidden = look_for_card_back(query, str(ctx.guild_id))
     await ctx.send(embeds=embed, ephemeral=hidden)
     # await cards_buttons_row(bot, ctx, embed)
 
@@ -155,7 +154,7 @@ async def tarot(ctx: SlashContext, name=""):
     # await ctx.defer()
     logging.info(f"/ahtarot sent with: name={name}")
     increment_command(ctx.guild_id, ctx.author_id, "ahtarot")
-    embed, hidden = look_for_tarot(name)
+    embed, hidden = look_for_tarot(name, str(ctx.guild_id))
     await ctx.send(embeds=embed, ephemeral=hidden)
 
 
@@ -169,7 +168,7 @@ async def game_timing(ctx: SlashContext, timing):
     # await ctx.defer()
     logging.info(f"/ahtiming sent with: timing={timing}")
     increment_command(ctx.guild_id, ctx.author_id, "ahtiming")
-    embed, _ = look_for_framework(timing)
+    embed, _ = look_for_framework(timing, str(ctx.guild_id))
     await ctx.send(embeds=embed)
 
 
@@ -193,7 +192,7 @@ async def list_cards(
     query = dict_of(name, level, faction, extras, subtitle, cycle, traits)
     logging.info(f"/ahlist sent with: {query}")
     increment_command(ctx.guild_id, ctx.author_id, "ahlist")
-    embed, hidden = look_for_list_of_cards(query)
+    embed, hidden = look_for_list_of_cards(query, str(ctx.guild_id))
     await ctx.send(embeds=embed, ephemeral=hidden)
 
 
@@ -217,7 +216,7 @@ async def random(
     query = dict_of(name, level, faction, extras, subtitle, cycle, traits)
     logging.info(f"/ahrandom sent with: {query}")
     increment_command(ctx.guild_id, ctx.author_id, "ahrandom")
-    embed, hidden = look_for_random_player_card(query)
+    embed, hidden = look_for_random_player_card(query, str(ctx.guild_id))
     await ctx.send(embeds=embed, ephemeral=hidden)
 
 
@@ -241,7 +240,7 @@ async def ah_who(
     query = dict_of(name, level, faction, extras, subtitle, cycle, traits)
     logging.info(f"/ahWho sent with: {query}")
     increment_command(ctx.guild_id, ctx.author_id, "ahwho")
-    embed, hidden = look_for_whom(query)
+    embed, hidden = look_for_whom(query, str(ctx.guild_id))
     await ctx.send(embeds=embed, ephemeral=hidden)
     # await cards_buttons_row(bot, ctx, embed)
 
@@ -256,7 +255,7 @@ async def costumizable_card(ctx: SlashContext, name=""):
     query = {"name": name}
     logging.info(f"/ahCustomizable sent with: {query}")
     increment_command(ctx.guild_id, ctx.author_id, "ahcustomizable")
-    embed, hidden = look_for_customizable_card(query)
+    embed, hidden = look_for_customizable_card(query, str(ctx.guild_id))
     await ctx.send(embeds=embed, ephemeral=hidden)
 
 

@@ -39,11 +39,11 @@ class Tarot:
         return {}
 
 
-def format_tarot(tarot_card):
+def format_tarot(tarot_card, guild_id="None"):
     """Formats the tarot card information into an embed."""
     title = f"**{tarot_card['name']}**"
-    up_text = format_text(tarot_card["up"])
-    down_text = format_text(tarot_card["down"])
+    up_text = format_text(tarot_card["up"], guild_id)
+    down_text = format_text(tarot_card["down"], guild_id)
     orientation = random.choice(
         [
             _("tarot_up_name"),
