@@ -40,7 +40,6 @@ def look_for_mythos_card(query: dict, guild_id="None"):
     :param query: A query string, it can contain an (TYPE) or a ~Subtext~
     :return: a Discord.Embed
     """
-    logging.info(f"look_for_mythos_card({query})")
     r_cards = card_search(query, cards.get_e_cards(), use_ec_keywords)
     if not r_cards:
         return create_embed(_("card_not_found")), True

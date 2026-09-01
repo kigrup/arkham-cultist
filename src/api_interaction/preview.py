@@ -1,12 +1,12 @@
 import json
-from config import LANG
+from config import BOT_LANGUAGE
 
 
 class Preview:
     """Class that handles the preview data from the data/preview.json file."""
 
     def __init__(self):
-        with open(f"data/{LANG}/preview.json", encoding="UTF-8") as f:
+        with open(f"data/{BOT_LANGUAGE}/preview.json", encoding="UTF-8") as f:
             self.preview = json.load(f)
 
     def get_preview_data(self):

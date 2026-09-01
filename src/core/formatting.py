@@ -5,6 +5,7 @@ from config import TEXT_FORMAT, ARKHAM_BUILD, ARKHAM_BUILD_CDN
 from src.core.metadata import metadata
 from src.core.translator import locale as _
 from src.core.utils import get_code
+from src.core.arkhambuild import LocalizedAttribute as attr
 
 
 def create_embed(title: str, description="", c=None, footnote="") -> Embed:
@@ -67,7 +68,7 @@ def format_set(c: dict) -> str:
     return _("preview_set")
 
 
-def format_card_text(c: dict, tag="real_text", guild_id="None") -> str:
+def format_card_text(c: dict, tag: str="", guild_id="None") -> str:
     """
     Formats tagged text from a tag in a Card.
 
@@ -75,6 +76,8 @@ def format_card_text(c: dict, tag="real_text", guild_id="None") -> str:
     :param tag: The tag to get the text.
     :return: A formatted text.
     """
+    if not tag:
+        tag = attr.TEXT.get(c)
     formatting = {"\n": "\n> "}
     if tag in c:
         text = format_text(c[tag], guild_id)
@@ -219,7 +222,7 @@ def format_name(c: dict) -> str:
     :param c:
     :return:
     """
-    return f"{'*' if "is_unique" in c and c["is_unique"] else ''}{c["name"] if "name" in c else c["real_name"]}"
+    return f"{'*' if "is_unique" in c and c["is_unique"] else ''}{c[attr.NAME.get(c)]}"
 
 
 def format_subtext(c: dict) -> str:
@@ -228,8 +231,8 @@ def format_subtext(c: dict) -> str:
     :param c:
     :return:
     """
-    if "real_subname" in c or "subname" in c:
-        return f": _{c["subname"] if "subname" in c else c["real_subname"]}_"
+    if "real_subname" in c:
+        return f": _{c[attr.SUBNAME.get(c)]}_"
     else:
         return ""
 
@@ -263,7 +266,7 @@ def format_type(c: dict) -> str:
     """
     if "type_name" in c:
         return f"**{c['type_name']}**"
-    return f"**{c['type_code'].capitalize()}**"
+    return f"**{_(c['type_code'])}**"
 
 
 def format_traits(c: dict) -> str:
@@ -272,8 +275,8 @@ def format_traits(c: dict) -> str:
     :param c:
     :return:
     """
-    if "real_traits" in c or "traits" in c:
-        return f"***{c["traits"] if "traits" in c else c["real_traits"]}***"
+    if "real_traits" in c:
+        return f"***{c[attr.TRAITS.get(c)]}***"
     return ""
 
 
@@ -283,8 +286,8 @@ def format_flavour(c: dict, guild_id="None") -> str:
     :param c:
     :return:
     """
-    if "real_flavor" in c or "flavor" in c:
-        return f"_{format_text(c["flavor"] if "flavor" in c else c["real_flavor"], guild_id)}_\n"
+    if "real_flavor" in c:
+        return f"_{format_text(c[attr.FLAVOR.get(c)], guild_id)}_\n"
 
     return ""
 
@@ -296,8 +299,8 @@ def format_customizable(c: dict, guild_id="None") -> str:
     :return:
     """
 
-    if "real_customization_text" in c or "customization_text" in c:
-        return f"{format_text(c["customization_text"] if "customization_text" in c else c["real_customization_text"], guild_id)}\n"
+    if "real_customization_text" in c:
+        return f"{format_text(c[attr.CUSTOMIZATION_TEXT.get(c)], guild_id)}\n"
 
     return ""
 

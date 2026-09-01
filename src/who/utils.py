@@ -1,3 +1,5 @@
+from src.core.arkhambuild import LocalizedAttribute as attr
+
 def transform_secondary_class(choice):
     new_choice = {}
     if choice["name"] == "Trait Choice":
@@ -61,7 +63,7 @@ def check_level(card, levels):
 
 
 def check_traits(card, traits):
-    c_traits = card["real_traits"][:-1].lower()
+    c_traits = card[attr.TRAITS.get(card)][:-1].lower()
     for t in traits:
         if t in c_traits:
             return True

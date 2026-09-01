@@ -7,9 +7,12 @@ Discord bot forked from _Cotorrra_. Fetches Arkham Horror LCG cards, decks and i
 First you'll need to set up a .env file with the following properties:
 
 - DISCORD_TOKEN : **Required**. Your Discord Application Bot Token (not the OAuth Client Secret).
-- BOT_LANGUAGE: **Optional**. The language of the Discord Interactions (it should be one that has a file in /data).
-- CUSTOM_EMOJIS: **Optional**. JSON with custom emojis override per server.
-      - Example syntax: ```{"225349059689447425": {"Hand x2": ":open_hands:", "[action]": ":arrow_right:"}}```
+- API_LANGUAGE: **Optional**. The language of the arkham.build API, so all the cards and metadata retrieved. Will default to `en` if empty or invalid value is provided.
+   - Valid values: `en`, `es`, `pl`, `de`, `fr`, `ko`, `ru`, `it`, `zh`.
+- BOT_LANGUAGE: **Optional**.  The language of the bot labels and descriptions. Will default to `en` if empty or invalid value is provided.
+   - Valid values: `en`, `es`. (If you need the bot translated to any other language please open an issue)
+- CUSTOM_EMOJIS: **Optional**. JSON with custom emojis override per server. Any emoji not provided for any server will use the default ones (which only work in DMs).
+   - Example syntax: `{"225349059689447425": {"Hand x2": ":open_hands:", "[action]": ":arrow_right:"}}`
 
 ### Docker
 

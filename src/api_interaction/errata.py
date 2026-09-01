@@ -1,15 +1,16 @@
 import json
 
-from config import LANG
+from config import BOT_LANGUAGE
 from src.core.formatting import format_card_text
 from src.core.translator import locale as _
+from src.core.arkhambuild import LocalizedAttribute as attr
 
 
 class Errata:
     """Class that handles the errata data from the data/errata.json file."""
 
     def __init__(self):
-        with open(f"data/{LANG}/errata.json", encoding="UTF-8") as f:
+        with open(f"data/{BOT_LANGUAGE}/errata.json", encoding="UTF-8") as f:
             self.errata_data = json.load(f)
 
     def has_errata(self, card_id):
@@ -41,11 +42,11 @@ class Errata:
             card = self.get_errata_card(card_id)
             if back and ("real_back_text" in card):
                 text += f"> **{_('errata_title')}**:\n> %s \n\n" % format_card_text(
-                    card, "real_back_text", guild_id
+                    card, attr.BACK_TEXT.get(card), guild_id
                 )
             elif "text" in card:
                 text += f"> **{_('errata_title')}**:\n> %s \n\n" % format_card_text(
-                    card, "real_text", guild_id
+                    card, attr.TEXT.get(card), guild_id
                 )
             return text
 

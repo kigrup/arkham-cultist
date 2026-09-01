@@ -1,6 +1,6 @@
 import requests
 
-from config import ARKHAM_BUILD_API
+from config import ARKHAM_BUILD_API, API_LANGUAGE
 from src.core.translator import locale as _
 from src.core.utils import get_code
 
@@ -12,7 +12,7 @@ class CardsDB:
 
     def __init__(self):
         self.ah_all_cards = requests.get(
-            f"{ARKHAM_BUILD_API}/cache/cards", timeout=10
+            f"{ARKHAM_BUILD_API}/cache/cards/{API_LANGUAGE}", timeout=10
         ).json()["data"]["all_card"]
 
         self.ah_player = [
@@ -46,7 +46,7 @@ class CardsDB:
         for inv in parallel_inv:
             inv["name"] = f"{inv['real_name']} ({_('parallel')})"
         self.ah_investigators += parallel_inv
-        self.ah_customizable = [c for c in self.ah_player if "customization_text" in c]
+        self.ah_customizable = [c for c in self.ah_player if "customization_text" in c and "-" not in c["id"]]
 
     def get_all_cards(self):
         """Returns all the cards from the game"""

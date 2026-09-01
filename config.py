@@ -4,9 +4,6 @@ import json
 
 from dotenv import load_dotenv
 
-log_format = "[%(asctime)s] %(levelname)-8s %(name)-12s %(message)s"
-
-# The Bot secret TOKEN
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN", "")
 if (TOKEN == ""):
@@ -16,8 +13,17 @@ ARKHAM_BUILD = "https://arkham.build"
 ARKHAM_BUILD_API = "https://api.arkham.build/v1"
 ARKHAM_BUILD_CDN = "https://cdn.arkham.build/optimized"
 
-LANG = os.getenv("BOT_LANGUAGE", "en")
-logging.info(f"BOT_LANGUAGE:{LANG}")
+API_LANGUAGE = os.getenv("API_LANGUAGE", "en")
+logging.info(f"API_LANGUAGE:{API_LANGUAGE}")
+if API_LANGUAGE not in ["en", "es", "pl", "de", "fr", "ko", "ru", "it", "zh"]:
+    logging.error(f"Invalid API_LANGUAGE provided in .env, defaulting to 'en'")
+    API_LANGUAGE = "en"
+
+BOT_LANGUAGE = os.getenv("BOT_LANGUAGE", "en")
+logging.info(f"BOT_LANGUAGE:{BOT_LANGUAGE}")
+if BOT_LANGUAGE not in ["en", "es"]:
+    logging.error(f"Invalid BOT_LANGUAGE provided in .env, defaulting to 'en'")
+    BOT_LANGUAGE = "en"
 
 SLOT_CUSTOM_EMOJIS = {
     "None": {

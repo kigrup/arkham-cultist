@@ -3,6 +3,7 @@ from re import sub
 from typing import List
 
 from unidecode import unidecode
+from src.core.arkhambuild import LocalizedAttribute as attr
 
 
 def card_search(query, cards, keyword_func, allow_empty=False):
@@ -21,7 +22,7 @@ def card_search(query, cards, keyword_func, allow_empty=False):
         f_cards = [c for c in f_cards if filter_by_subtext(c, query["subtitle"])]
         f_cards = sorted(
             f_cards,
-            key=lambda card: -hits_in_string(card["real_subname"], query["subtitle"]),
+            key=lambda card: -hits_in_string(card[attr.SUBNAME.get(card)], query["subtitle"]),
         )
 
     f_cards = keyword_func(f_cards, query)
@@ -54,9 +55,9 @@ def card_filter(query: dict, cards: List[dict]):
     r_cards = cards.copy()
     if "name" in query and query["name"]:
         r_cards = sorted(
-            r_cards, key=lambda card: -hits_in_string(query["name"], card["real_name"])
+            r_cards, key=lambda card: -hits_in_string(query["name"], card[attr.NAME.get(card)])
         )
-        r_cards = [c for c in r_cards if hits_in_string(query["name"], c["real_name"]) > 0]
+        r_cards = [c for c in r_cards if hits_in_string(query["name"], c[attr.NAME.get(c)]) > 0]
     return r_cards
 
 
@@ -83,7 +84,7 @@ def filter_by_subtext(card: dict, subname: str):
     :return:
     """
     if "real_subname" in card:
-        return hits_in_string(card["real_subname"], subname) > 0
+        return hits_in_string(card[attr.SUBNAME.get(card)], subname) > 0
     return False
 
 

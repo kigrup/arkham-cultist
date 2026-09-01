@@ -22,6 +22,7 @@
         "treachery": "Treachery",
         "enemy": "Enemy",
         "location": "Location",
+        "enemy_location": "Enemy Location",
         "player_cards": "Player Cards",
         "xp": "Experience",
         "mythos": "Mythos",
@@ -41,8 +42,11 @@
         "xp_needed": "Experience required",
         "xp_upgrade": "Experience (spent/earned)",
         "assets": "Assets",
+        "asset": "Asset",
         "events": "Events",
+        "event": "Event",
         "skills": "Skills",
+        "skill": "Skill",
         "treacheries/enemies": "Treacheries/Enemies",
         "added_cards": "Added Cards",
         "removed_cards": "Removed Cards",
@@ -76,7 +80,7 @@
         "ahWho_everyone": "Any investigator can take this card! (At the moment)",
         "name_description": "Card Name",
         "traits_description": "Card Traits(s), you can include more than one separating by commas (ex: Ally, Wayfarer)",
-        "level_description": "Card Level. Can be specific (ex. '0'), with a comparator (ex. '>2' / '<5') or a list (ex. '1,3,4')",
+        "level_description": "Card Level. Can be specific (ex. '0'), with a comparator (ex. '>2' or '<5') or a list (ex. '1,3,4')",
         "faction_description": "Card Class",
         "sub_description": "Card subtitle",
         "pack_description": "Cycle",
@@ -101,6 +105,8 @@
         "ahList_title": "Cards found:",
         "ahPreview_description": "Looks for cards that haven't been released, beta cards, etc.",
         "customization_title": "Available Upgrades:",
-        "preview_set": "This is a preview/beta card."
+        "preview_set": "This is a preview/beta card.",
+        "key": "Key",
+        "story": "Story"
     }
 }

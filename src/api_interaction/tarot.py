@@ -1,7 +1,7 @@
 import json
 import random
 
-from config import LANG
+from config import BOT_LANGUAGE
 
 from src.core.formatting import format_text, create_embed
 from src.core.search import hits_in_string
@@ -12,7 +12,7 @@ class Tarot:
     """Class that handles the tarot data."""
 
     def __init__(self):
-        with open(f"data/{LANG}/tarot.json", encoding="UTF-8") as f:
+        with open(f"data/{BOT_LANGUAGE}/tarot.json", encoding="UTF-8") as f:
             self.tarot_info = json.load(f)
 
     def get_tarot_data(self):

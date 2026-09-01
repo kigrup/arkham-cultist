@@ -1,6 +1,6 @@
 import json
 
-from config import LANG
+from config import BOT_LANGUAGE
 from src.core.formatting import format_text, create_embed
 
 
@@ -8,7 +8,7 @@ class Timings:
     """Class that handles the timing data from the data/timings.json file."""
 
     def __init__(self):
-        with open(f"data/{LANG}/timings.json", encoding="UTF-8") as f:
+        with open(f"data/{BOT_LANGUAGE}/timings.json", encoding="UTF-8") as f:
             self.timings = json.load(f)
 
     def get_timings_data(self):

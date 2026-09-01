@@ -1,6 +1,6 @@
 import json
 
-from config import LANG
+from config import BOT_LANGUAGE
 from src.core.formatting import format_text
 from src.core.translator import locale as _
 
@@ -10,7 +10,7 @@ class Taboo:
 
     def __init__(self, current_taboo=""):
         if not current_taboo:
-            with open(f"data/{LANG}/taboo.json", encoding="UTF-8") as f:
+            with open(f"data/{BOT_LANGUAGE}/taboo.json", encoding="UTF-8") as f:
                 self.taboo_data = json.load(f)
             current_taboo = self.taboo_data[0]["code"]
         self.current_taboo = current_taboo

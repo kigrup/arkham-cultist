@@ -10,6 +10,7 @@ from src.core.formatting import (
 )
 from src.core.translator import locale as _
 from src.backlog.faq.faq import faq_info
+from src.core.arkhambuild import LocalizedAttribute as attr
 
 
 def format_faq(c, guild_id="None"):

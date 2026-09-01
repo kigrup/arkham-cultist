@@ -60,8 +60,8 @@ def player_card_slash_options(name_req=False):
             name="cycle",
             description=_("pack_description"),
             choices=[
-                SlashCommandChoice(name=cy["real_name"], value=f"{cy['position']:02}")
-                for cy in metadata.get_cycles()
+                SlashCommandChoice(name=cycle_name, value=f"{cycle_position:02}")
+                for cycle_name, cycle_position in metadata.get_cycles()
             ],
             type=OptionType.STRING,
             required=False,
@@ -99,6 +99,7 @@ def deck_slash_options():
 
 def general_card_slash_options():
     """Returns the slash command options for general cards."""
+    
     return [
         SlashCommandOption(
             name="name",
@@ -131,8 +132,8 @@ def general_card_slash_options():
             name="cycle",
             description=_("pack_description"),
             choices=[
-                SlashCommandChoice(name=cy["real_name"], value=f"{cy['position']:02}")
-                for cy in metadata.get_cycles()
+                SlashCommandChoice(name=cycle_name, value=f"{cycle_position:02}")
+                for cycle_name, cycle_position in metadata.get_cycles()
             ],
             type=OptionType.STRING,
             required=False,

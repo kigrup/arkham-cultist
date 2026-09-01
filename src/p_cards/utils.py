@@ -6,9 +6,8 @@ from src.core.translator import locale as _
 
 def format_slot(c, guild_id="None"):
     text = ""
-    if "real_slot" in c or "slot" in c:
-        slot_key = "real_slot" if "real_slot" in c else "slot"
-        slots = c[slot_key].split(". ")
+    if "real_slot" in c:
+        slots = c["real_slot"].split(". ")
         for slot in slots:
             text += SLOT_CUSTOM_EMOJIS[guild_id if guild_id in SLOT_CUSTOM_EMOJIS else "None"][slot]
 
@@ -50,13 +49,13 @@ def get_color_by_investigator(deck, cards):
 
 def format_sub_text_short(c):
     if "real_text" in c:
-        if "subname" in c:
+        if "real_subname" in c:
             if (
                 "Researched." in c["real_text"]
                 or "Directive" in c["real_name"]
                 or "Discipline" in c["real_name"]
             ):
-                return f": _{c['subname']}_"
+                return f": _{c['subname' if 'subname' in c else 'real_subname']}_"
         if "Advanced." in c["real_text"]:
             return " _(Adv)_"
     return ""
