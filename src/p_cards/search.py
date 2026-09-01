@@ -1,6 +1,5 @@
 from src.core.utils import is_lvl
 
-
 def use_pc_keywords(cards: list, query: dict):
     """
     Filtra cartas de jugador según los caracteres del string dado
@@ -29,9 +28,7 @@ def use_pc_keywords(cards: list, query: dict):
             filtered_cards = [c for c in filtered_cards if c["exceptional"]]
 
     if "level" in query and query["level"] != '':
-        char = int(query["level"])
-        if 0 <= char <= 5:
-            filtered_cards = [c for c in filtered_cards if is_lvl(c, char)]
+        filtered_cards = [c for c in filtered_cards if is_lvl(c, query["level"])]
 
     if "faction" in query and query["faction"]:
         char = query["faction"].lower()

@@ -5,19 +5,27 @@ def split_files(src: str):
         rest += f"{a}/"
     return rest
 
-
-def is_lvl(card: dict, lvl: int):
+def is_lvl(card: dict, lvl: str):
     """
-    Compares the level of a card with a number, if the card doesnt have a level it always returns false.
+    Runs a query against a card's level, if the card doesnt have a level it always returns false.
     :param card: card
-    :param lvl: lvl
+    :param lvl: an integer of the level to check for, or a string with a greater than or less than sign to check for a range of levels.
     :return:
     """
     if "xp" in card:
-        return card["xp"] == lvl
-    else:
-        return False
+        if (type(lvl) == str and lvl.isnumeric()) or type(lvl) == int:
+            return card["xp"] == int(lvl)
+        elif type(lvl) == str and len(lvl) == 2 and lvl[1].isnumeric():
+            if lvl[0] == '<':
+                return card["xp"] < int(lvl[1])
+            elif lvl[0] == '>':
+                return card["xp"] > int(lvl[1])
+            return card["x"] in list(range())
+        elif ',' in lvl:
+            lvl = lvl.split(',')
+            return card["xp"] in [int(q) for q in lvl]
 
+    return False
 
 def get_qty(deck, card_id):
     for c_id, qty in deck["slots"].items():

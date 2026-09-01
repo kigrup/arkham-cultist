@@ -20,7 +20,7 @@ def player_card_slash_options(name_req=False):
         SlashCommandOption(
             name="level",
             description=_("level_description"),
-            type=OptionType.NUMBER,
+            type=OptionType.STRING,
             required=False,
         ),
         SlashCommandOption(
