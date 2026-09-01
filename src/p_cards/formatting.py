@@ -30,7 +30,7 @@ from src.api_interaction.taboo import taboo
 from src.core.translator import locale as _
 
 
-def format_player_card(c, guild_id="None"):
+def format_player_card(c, guild_id="None", back=False):
     name = format_name(c)
     level = taboo.format_xp(c)
     subtext = format_subtext(c)
@@ -65,7 +65,7 @@ def format_player_card(c, guild_id="None"):
         f"{taboo_text}"
     )
     m_footnote = format_illus_pack(c)
-    return create_embed(m_title, m_description, c, m_footnote)
+    return create_embed(m_title, m_description, c, m_footnote, back=back)
 
 
 def format_inv_card_f(c, guild_id="None"):

@@ -55,7 +55,7 @@ def look_for_card_back(query: dict, guild_id="None"):
     :param query: A query string, it can contain an (TYPE) or a ~Subtext~
     :return: a Discord.Embed
     """
-    f_cards = [c for c in cards.get_all_cards() if "double_sided" in c and c["double_sided"]]
+    f_cards = [c for c in cards.get_all_cards() if "double_sided" in c]
     r_cards = card_search(query, f_cards, use_ec_keywords)
     if not r_cards:
         return create_embed(_("card_not_found")), True

@@ -8,7 +8,7 @@ from src.core.utils import get_code
 from src.core.arkhambuild import LocalizedAttribute as attr
 
 
-def create_embed(title: str, description="", c=None, footnote="") -> Embed:
+def create_embed(title: str, description="", c=None, footnote="", back=False) -> Embed:
     """
     Creates a Discord embed with a title, description and footnote of a card.
 
@@ -23,7 +23,7 @@ def create_embed(title: str, description="", c=None, footnote="") -> Embed:
         embed = Embed(
             title=title, description=description, color=color_picker(c), url=url
         )
-        set_thumbnail_image(c, embed)
+        set_thumbnail_image(c, embed, back)
     else:
         embed = Embed(title=title, description=description, color=0xAAAAAA)
     if footnote:

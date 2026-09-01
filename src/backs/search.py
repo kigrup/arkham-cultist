@@ -20,4 +20,4 @@ def resolve_back_search(r_cards, guild_id="None"):
             resolve_function = format_player_card
         case _:  # Enemy, Act, Agenda, Treachery goes here
             resolve_function = format_general_card_b
-    return resolve_function(r_cards[0], guild_id)
+    return resolve_function(r_cards[0], guild_id=guild_id, back=True)

@@ -111,7 +111,7 @@ def format_location_card_f(c, guild_id="None"):
     return create_embed(m_title, m_description, c, m_footnote)
 
 
-def format_scenario_card(c, guild_id="None"):
+def format_scenario_card(c, guild_id="None", back="False"):
     name = format_name(c)
     text = f"> {format_card_text(c, guild_id=guild_id)}"
     b_text = f"> {format_card_text(c, 'real_back_text', guild_id=guild_id)}"
@@ -119,7 +119,7 @@ def format_scenario_card(c, guild_id="None"):
     m_title = name
     m_description = f"{text}\n\n{b_text}"
     m_footnote = format_illus_pack(c)
-    return create_embed(m_title, m_description, c, m_footnote)
+    return create_embed(m_title, m_description, c, m_footnote, back=back)
 
 
 def format_treachery_card(c, guild_id="None"):
