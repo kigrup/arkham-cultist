@@ -18,7 +18,7 @@ class CardsDB:
         self.ah_player = [
             c
             for c in self.ah_all_cards
-            if "encounter_code" not in c
+            if "encounter_code" not in c or ("real_text" in c and "Reward." in c["real_text"])
         ]
 
         self.ah_player = [
