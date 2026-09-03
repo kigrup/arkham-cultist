@@ -28,6 +28,7 @@ from src.p_cards.utils import (
 )
 from src.api_interaction.taboo import taboo
 from src.core.translator import locale as _
+from src.core.arkhambuild import LocalizedAttribute as attr
 
 
 def format_player_card(c, guild_id="None", back=False):
@@ -95,7 +96,7 @@ def format_inv_card_f(c, guild_id="None"):
 
 
 def format_player_card_deck(c, qty=0, taboo_info="", guild_id="None"):
-    name = c["real_name"]
+    name = c[attr.NAME.get(c)]
     level = taboo.format_xp(c, taboo_info)
     faction = format_faction(c, guild_id)
     quantity = f"x{str(qty)}" if qty > 1 else ""
