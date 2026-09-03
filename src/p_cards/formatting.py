@@ -28,6 +28,7 @@ from src.p_cards.utils import (
 )
 from src.api_interaction.taboo import taboo
 from src.core.translator import locale as _
+from config import ARKHAM_BUILD
 from src.core.arkhambuild import LocalizedAttribute as attr
 
 
@@ -106,7 +107,7 @@ def format_player_card_deck(c, qty=0, taboo_info="", guild_id="None"):
     taboo_text = (
         format_text(" [taboo]", guild_id) if taboo.is_in_taboo(c["code"], taboo_info) else ""
     )
-    text = f"{priority_order}{faction}{slot} {name}{subname} {level}{taboo_text} {quantity}"
+    text = f"{priority_order}{faction}{slot} {name}{subname} {level}{taboo_text} {quantity} [↗]({ARKHAM_BUILD}/card/{c["code"]})"
     return text
 
 
