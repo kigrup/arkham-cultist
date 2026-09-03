@@ -3,6 +3,7 @@ import requests
 from config import ARKHAM_BUILD_API, API_LANGUAGE
 from src.core.translator import locale as _
 from src.core.utils import get_code
+from src.core.arkhambuild import LocalizedAttribute as attr
 
 
 class CardsDB:
@@ -46,7 +47,7 @@ class CardsDB:
         for inv in parallel_inv:
             inv["name"] = f"{inv['real_name']} ({_('parallel')})"
         self.ah_investigators += parallel_inv
-        self.ah_customizable = [c for c in self.ah_player if "customization_text" in c and "-" not in c["id"]]
+        self.ah_customizable = [c for c in self.ah_player if "real_customization_text" in c and "-" not in c["id"]]
 
     def get_all_cards(self):
         """Returns all the cards from the game"""
