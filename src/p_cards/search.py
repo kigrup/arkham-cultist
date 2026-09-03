@@ -19,7 +19,7 @@ def use_pc_keywords(cards: list, query: dict):
                 if (c["is_unique"] if "is_unique" in c else False)
             ]
         if char == "p":
-            filtered_cards = [c for c in filtered_cards if c["permanent"]]
+            filtered_cards = [c for c in filtered_cards if "permanent" in c]
         if char == "c":
             filtered_cards = [
                 c for c in filtered_cards if "deck only." in c["real_text"]
