@@ -29,7 +29,7 @@ def find_deck(code: float, deck_mode) -> dict:
 def find_former_deck(code: str, deck_mode):
     """Looks for a deck by its code, and returns its former deck in the upgrade list."""
     curr_deck = find_deck(code, deck_mode)
-    if curr_deck:
+    if curr_deck and "previous_deck" in curr_deck and curr_deck["previous_deck"]:
         former_code = str(curr_deck["previous_deck"])
         former_deck = find_deck(former_code, deck_mode)
         if former_deck:
