@@ -24,7 +24,7 @@ from src.api_interaction.errata import errata
 from src.core.translator import locale as _
 
 
-def format_enemy_card(c, guild_id="None"):
+def format_enemy_card(c, guild_id="None", image_only=False):
     name = format_name(c)
     subtext = format_subtext(c)
     faction = format_faction(c, guild_id)
@@ -53,10 +53,10 @@ def format_enemy_card(c, guild_id="None"):
         f"{taboo_text}"
     )
     m_footnote = format_illus_pack(c)
-    return create_embed(m_title, m_description, c, m_footnote)
+    return create_embed(m_title, m_description, c, m_footnote, image_only=image_only)
 
 
-def format_act_card_f(c, guild_id="None"):
+def format_act_card_f(c, guild_id="None", image_only=False):
     name = format_name(c)
     stage = f"***{_('act')} {c['stage']}***"
     flavour = text_if("%s\n\n", format_flavour(c, guild_id))
@@ -67,10 +67,10 @@ def format_act_card_f(c, guild_id="None"):
     m_title = name
     m_description = f"{stage}\n{flavour}{text}{clues}\n{errata_text}"
     m_footnote = format_illus_pack(c)
-    return create_embed(m_title, m_description, c, m_footnote)
+    return create_embed(m_title, m_description, c, m_footnote, image_only=image_only)
 
 
-def format_agenda_card_f(c, guild_id="None"):
+def format_agenda_card_f(c, guild_id="None", image_only=False):
     name = format_name(c)
     stage = f"***{_('agenda')} {c['stage']}***"
     flavour = text_if("%s\n\n", format_flavour(c, guild_id))
@@ -81,10 +81,10 @@ def format_agenda_card_f(c, guild_id="None"):
     m_title = name
     m_description = f"{stage}\n{flavour}{text}{doom}\n{errata_text}"
     m_footnote = format_illus_pack(c)
-    return create_embed(m_title, m_description, c, m_footnote)
+    return create_embed(m_title, m_description, c, m_footnote, image_only=image_only)
 
 
-def format_location_card_f(c, guild_id="None"):
+def format_location_card_f(c, guild_id="None", image_only=False):
     name = format_name(c)
     c_type = format_type(c)
     subtext = format_subtext(c)
@@ -108,10 +108,10 @@ def format_location_card_f(c, guild_id="None"):
         f"{errata_text}"
     )
     m_footnote = format_illus_pack(c)
-    return create_embed(m_title, m_description, c, m_footnote)
+    return create_embed(m_title, m_description, c, m_footnote, image_only=image_only)
 
 
-def format_scenario_card(c, guild_id="None", back="False"):
+def format_scenario_card(c, guild_id="None", back="False", image_only=False):
     name = format_name(c)
     text = f"> {format_card_text(c, guild_id=guild_id)}"
     b_text = f"> {format_card_text(c, 'real_back_text', guild_id=guild_id)}"
@@ -119,10 +119,10 @@ def format_scenario_card(c, guild_id="None", back="False"):
     m_title = name
     m_description = f"{text}\n\n{b_text}"
     m_footnote = format_illus_pack(c)
-    return create_embed(m_title, m_description, c, m_footnote, back=back)
+    return create_embed(m_title, m_description, c, m_footnote, back=back, image_only=image_only)
 
 
-def format_treachery_card(c, guild_id="None"):
+def format_treachery_card(c, guild_id="None", image_only=False):
     name = format_name(c)
     faction = format_faction(c, guild_id)
     c_type = format_type(c)
@@ -145,7 +145,7 @@ def format_treachery_card(c, guild_id="None"):
         f"{taboo_text}"
     )
     m_footnote = format_illus_pack(c)
-    return create_embed(m_title, m_description, c, m_footnote)
+    return create_embed(m_title, m_description, c, m_footnote, image_only=image_only)
 
 
 def format_general_card(c, guild_id="None"):

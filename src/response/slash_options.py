@@ -8,7 +8,7 @@ from src.core.formatting import format_name
 from src.core.translator import locale as _
 
 
-def player_card_slash_options(name_req=False):
+def player_card_slash_options(name_req=False, allow_image_only=False):
     """Returns the slash command options for player cards."""
     return [
         SlashCommandOption(
@@ -22,7 +22,15 @@ def player_card_slash_options(name_req=False):
             description=_("level_description"),
             type=OptionType.STRING,
             required=False,
-        ),
+        )
+    ] + ([
+        SlashCommandOption(
+            name="image_only",
+            description=_("imageOnly_description"),
+            type=OptionType.BOOLEAN,
+            required=False,
+        ) 
+    ] if allow_image_only else []) + [
         SlashCommandOption(
             name="faction",
             description=_("faction_description"),
@@ -123,6 +131,12 @@ def general_card_slash_options():
             ],
         ),
         SlashCommandOption(
+            name="image_only",
+            description=_("imageOnly_description"),
+            type=OptionType.BOOLEAN,
+            required=False,
+        ),
+        SlashCommandOption(
             name="subtitle",
             description=_("sub_description"),
             type=OptionType.STRING,
@@ -176,31 +190,6 @@ def timing_slash_options():
             ],
         )
     ]
-
-
-def preview_card_slash_options():
-    """Returns the slash command options for previewed cards"""
-    options = []
-    preview_data = preview.get_preview_data()
-    counter = 0
-    while preview_data:
-        preview_slice, preview_data = preview_data[:25], preview_data[25:]
-        options.append(
-            SlashCommandOption(
-                name="card" + str(counter),
-                description=_("name_description"),
-                type=OptionType.STRING,
-                required=False,
-                choices=[
-                    SlashCommandChoice(
-                        name=f"{format_name(c)}{taboo.format_xp(c)}", value=c["code"]
-                    )
-                    for c in preview_slice
-                ],
-            )
-        )
-        counter += 1
-    return options
 
 
 def customizable_card_slash_options():

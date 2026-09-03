@@ -18,7 +18,7 @@ from src.response.resolve import resolve_customizable, resolve_search
 from src.who.who import resolve_search_who
 
 
-def look_for_player_card(query: dict, guild_id="None"):
+def look_for_player_card(query: dict, guild_id="None", image_only=False):
     """
     Given a query, a list of cards and a keyword function
     returns a embed containing the information of a card.
@@ -29,11 +29,11 @@ def look_for_player_card(query: dict, guild_id="None"):
     if not r_cards:
         return create_embed(_("card_not_found")), True
 
-    embed = resolve_search(r_cards, guild_id)
+    embed = resolve_search(r_cards, guild_id, image_only)
     return embed, False
 
 
-def look_for_mythos_card(query: dict, guild_id="None"):
+def look_for_mythos_card(query: dict, guild_id="None", image_only=False):
     """
     Given a query, a list of cards and a keyword function
     returns a embed containing the information of a mythos card.
@@ -44,11 +44,11 @@ def look_for_mythos_card(query: dict, guild_id="None"):
     if not r_cards:
         return create_embed(_("card_not_found")), True
 
-    embed = resolve_search(r_cards, guild_id)
+    embed = resolve_search(r_cards, guild_id, image_only=image_only)
     return embed, False
 
 
-def look_for_card_back(query: dict, guild_id="None"):
+def look_for_card_back(query: dict, guild_id="None", image_only=False):
     """
     Given a query, a list of cards and a keyword function
     returns a embed containing the information of a back of a card.
@@ -60,7 +60,7 @@ def look_for_card_back(query: dict, guild_id="None"):
     if not r_cards:
         return create_embed(_("card_not_found")), True
 
-    embed = resolve_back_search(r_cards, guild_id)
+    embed = resolve_back_search(r_cards, guild_id, image_only=image_only)
     return embed, False
 
 
@@ -135,7 +135,7 @@ def look_for_list_of_cards(query, guild_id="None"):
     return embed, False
 
 
-def look_for_random_player_card(query, guild_id="None"):
+def look_for_random_player_card(query, guild_id="None", image_only=False):
     """Given a query, returns a embed containing a random card.
 
     Arguments:
@@ -149,7 +149,7 @@ def look_for_random_player_card(query, guild_id="None"):
         return create_embed(_("card_not_found")), True
 
     card = random.choice(r_cards)
-    embed = resolve_search([card], guild_id)
+    embed = resolve_search([card], guild_id, image_only)
     return embed, False
 
 

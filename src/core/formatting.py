@@ -8,7 +8,7 @@ from src.core.utils import get_code
 from src.core.arkhambuild import LocalizedAttribute as attr
 
 
-def create_embed(title: str, description="", c=None, footnote="", back=False) -> Embed:
+def create_embed(title: str, description="", c=None, footnote="", back=False, image_only=False) -> Embed:
     """
     Creates a Discord embed with a title, description and footnote of a card.
 
@@ -21,9 +21,9 @@ def create_embed(title: str, description="", c=None, footnote="", back=False) ->
     if c:
         url = f"{ARKHAM_BUILD}/card/{c["code"]}"
         embed = Embed(
-            title=title, description=description, color=color_picker(c), url=url
+            title=title, description=(description if not image_only else ''), color=color_picker(c), url=url
         )
-        set_thumbnail_image(c, embed, back)
+        set_image(c, embed, back, thumbnail=(not image_only))
     else:
         embed = Embed(title=title, description=description, color=0xAAAAAA)
     if footnote:
@@ -191,18 +191,22 @@ def slot_order(c):
                 return order[slots[0]]
     return "9"
 
-
-def set_thumbnail_image(c: dict, embed: Embed, back=False) -> None:
+def set_image(c: dict, embed: Embed, back=False, thumbnail=True) -> None:
     """
-    Sets the thumbnail image of an embed, using the card image from ArkhamDB.
+    Sets the thumbnail or image of an embed, using the card image from arkham.build.
 
     :param c: Card info
     :param embed: Discord Embed
     :param back: If it has to show the card back instead
+    :param thumbnail: If it should set the image instead of the image
     :return: None
     """
     if c:
-        embed.set_thumbnail(url=f"{ARKHAM_BUILD_CDN}/{c['code']}{'b' if back else ''}.jpg")
+        url = f"{ARKHAM_BUILD_CDN}/{c['code']}{'b' if back else ''}.jpg"
+        if thumbnail:
+            embed.set_thumbnail(url)
+        else:
+            embed.set_image(url)
 
 def format_illustrator(c: dict) -> str:
     """

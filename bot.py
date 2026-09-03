@@ -57,12 +57,13 @@ async def on_ready():
 @slash_command(
     name="ah",
     description=_("ah_description"),
-    options=player_card_slash_options(name_req=True),  # type: ignore
+    options=player_card_slash_options(name_req=True, allow_image_only=True),  # type: ignore
 )
 async def player_card(
     ctx: SlashContext,
     name,
     level="",
+    image_only=False,
     faction="",
     extras="",
     subtitle="",
@@ -73,7 +74,7 @@ async def player_card(
     try:
         query = dict_of(name, level, faction, extras, subtitle, cycle, traits)
         increment_command(ctx.guild_id, ctx.author_id, "ah", query=query)
-        embed, hidden = look_for_player_card(query, str(ctx.guild_id))
+        embed, hidden = look_for_player_card(query, str(ctx.guild_id), image_only=image_only)
         await ctx.send(embeds=embed, ephemeral=hidden)
     except Exception as exc:
         await handle_command_error(ctx, exc, bot.owner)
@@ -114,13 +115,13 @@ async def upgrade(ctx: SlashContext, code, deck_type=""):
     options=general_card_slash_options(),  # type: ignore
 )
 async def encounter(
-    ctx: SlashContext, name="", card_type="", subtitle="", cycle="", traits=""
+    ctx: SlashContext, name="", card_type="", image_only=False, subtitle="", cycle="", traits=""
 ):
     """Handle the /ahe command, it returns encounter cards."""
     try:
         query = dict_of(name, card_type, subtitle, cycle, traits)
         increment_command(ctx.guild_id, ctx.author_id, "ahe", query=query)
-        embed, hidden = look_for_mythos_card(query, str(ctx.guild_id))
+        embed, hidden = look_for_mythos_card(query, str(ctx.guild_id), image_only=image_only)
         await ctx.send(embeds=embed, ephemeral=hidden)
     except Exception as exc:
         await handle_command_error(ctx, exc, bot.owner)
@@ -131,13 +132,13 @@ async def encounter(
     options=general_card_slash_options(),  # type: ignore
 )
 async def back(
-    ctx: SlashContext, name="", card_type="", subtitle="", cycle="", traits=""
+    ctx: SlashContext, name="", card_type="", image_only=False, subtitle="", cycle="", traits=""
 ):
     """Handles the /ahb command, it returns card backs."""
     try:
         query = dict_of(name, card_type, subtitle, cycle, traits)
         increment_command(ctx.guild_id, ctx.author_id, "ahb", query=query)
-        embed, hidden = look_for_card_back(query, str(ctx.guild_id))
+        embed, hidden = look_for_card_back(query, str(ctx.guild_id), image_only=image_only)
         await ctx.send(embeds=embed, ephemeral=hidden)
     except Exception as exc:
         await handle_command_error(ctx, exc, bot.owner)
@@ -197,12 +198,13 @@ async def list_cards(
 @slash_command(
     name="ahrandom",
     description=_("ahRandom_description"),
-    options=player_card_slash_options(),  # type: ignore
+    options=player_card_slash_options(allow_image_only=True),  # type: ignore
 )
 async def random(
     ctx: SlashContext,
     name="",
     level="",
+    image_only=False,
     faction="",
     extras="",
     subtitle="",
@@ -213,7 +215,7 @@ async def random(
     try:
         query = dict_of(name, level, faction, extras, subtitle, cycle, traits)
         increment_command(ctx.guild_id, ctx.author_id, "ahrandom", query=query)
-        embed, hidden = look_for_random_player_card(query, str(ctx.guild_id))
+        embed, hidden = look_for_random_player_card(query, str(ctx.guild_id), image_only=image_only)
         await ctx.send(embeds=embed, ephemeral=hidden)
     except Exception as exc:
         await handle_command_error(ctx, exc, bot.owner)

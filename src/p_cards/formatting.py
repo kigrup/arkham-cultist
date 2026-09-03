@@ -32,7 +32,7 @@ from config import ARKHAM_BUILD
 from src.core.arkhambuild import LocalizedAttribute as attr
 
 
-def format_player_card(c, guild_id="None", back=False):
+def format_player_card(c, guild_id="None", back=False, image_only=False):
     name = format_name(c)
     level = taboo.format_xp(c)
     subtext = format_subtext(c)
@@ -67,10 +67,10 @@ def format_player_card(c, guild_id="None", back=False):
         f"{taboo_text}"
     )
     m_footnote = format_illus_pack(c)
-    return create_embed(m_title, m_description, c, m_footnote, back=back)
+    return create_embed(m_title, m_description, c, m_footnote, back=back, image_only=image_only)
 
 
-def format_inv_card_f(c, guild_id="None"):
+def format_inv_card_f(c, guild_id="None", image_only=False):
     faction = format_faction(c, guild_id)
     name = format_name(c)
     subname = format_subtext(c)
@@ -93,7 +93,7 @@ def format_inv_card_f(c, guild_id="None"):
         f"{taboo_text}\n"
     )
     m_footnote = format_illus_pack(c)
-    return create_embed(m_title, m_description, c, m_footnote)
+    return create_embed(m_title, m_description, c, m_footnote, image_only=image_only)
 
 
 def format_player_card_deck(c, qty=0, taboo_info="", guild_id="None"):

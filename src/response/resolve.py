@@ -17,7 +17,7 @@ from src.p_cards.formatting import (
 )
 
 
-def resolve_search(r_cards, guild_id="None") -> Embed:
+def resolve_search(r_cards, guild_id="None", image_only=False) -> Embed:
     """Resolves the search results into an embed."""
     match r_cards[0]["type_code"]:
         case "investigator":
@@ -38,7 +38,7 @@ def resolve_search(r_cards, guild_id="None") -> Embed:
             resolve_function = format_player_card
         case _:
             resolve_function = format_general_card
-    return resolve_function(r_cards[0], guild_id)
+    return resolve_function(r_cards[0], guild_id=guild_id, image_only=image_only)
 
 
 def resolve_customizable(r_cards, guild_id) -> Embed:

@@ -15,7 +15,7 @@ from src.api_interaction.errata import errata
 from src.core.arkhambuild import LocalizedAttribute as attr
 
 
-def format_inv_card_b(c: dict, guild_id="None", back=True) -> Embed:
+def format_inv_card_b(c: dict, guild_id="None", back=True, image_only=False) -> Embed:
     """Format an investigator card's back side."""
     faction = format_faction(c, guild_id)
     name = format_name(c)
@@ -27,11 +27,11 @@ def format_inv_card_b(c: dict, guild_id="None", back=True) -> Embed:
     m_title = f"{faction} {name} {subname}"
     m_description = f"{deck_req}\n\n{flavour}\n\n{errata_text}"
     m_footnote = format_illus_pack(c)
-    embed = create_embed(m_title, m_description, c, m_footnote, back=back)
+    embed = create_embed(m_title, m_description, c, m_footnote, back=back, image_only=image_only)
     return embed
 
 
-def format_location_card_b(c: dict, guild_id="None", back=True) -> Embed:
+def format_location_card_b(c: dict, guild_id="None", back=True, image_only=False) -> Embed:
     """Format a location card's back side."""
     name = format_name(c)
     back_text = text_if("> %s", format_card_text(c, attr.BACK_TEXT.get(c), guild_id))
@@ -40,11 +40,11 @@ def format_location_card_b(c: dict, guild_id="None", back=True) -> Embed:
     m_title = name
     m_description = f"{back_text}\n\n{flavour}"
     m_footnote = format_illus_pack(c)
-    embed = create_embed(m_title, m_description, c, m_footnote, back=back)
+    embed = create_embed(m_title, m_description, c, m_footnote, back=back, image_only=image_only)
     return embed
 
 
-def format_general_card_b(c: dict, guild_id="None", back=True) -> Embed:
+def format_general_card_b(c: dict, guild_id="None", back=True, image_only=False) -> Embed:
     """Format a general card's back side."""
     name = format_name(c)
     subname = format_subtext(c)
@@ -55,5 +55,5 @@ def format_general_card_b(c: dict, guild_id="None", back=True) -> Embed:
     m_title = f"{name} {subname}"
     m_description = f"{flavour}\n\n{back_text}"
     m_footnote = pack
-    embed = create_embed(m_title, m_description, c, m_footnote, back=back)
+    embed = create_embed(m_title, m_description, c, m_footnote, back=back, image_only=image_only)
     return embed
