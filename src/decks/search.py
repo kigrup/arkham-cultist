@@ -6,7 +6,7 @@ from config import ARKHAM_BUILD_API
 
 
 def find_deck(code: float, deck_mode) -> dict:
-    """Searchs a deck by code in the ArkhamDB API."""
+    """Searchs a deck by code in the arkham.build API."""
     try:
         code = int(code)
         link = f"{ARKHAM_BUILD_API}/public/share/{code}{"?type=decklist" if deck_mode == "decklist" else ""}"

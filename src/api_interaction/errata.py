@@ -27,7 +27,7 @@ class Errata:
     def get_errata_card(self, card_id):
         """
         Return the errata info of a given card.
-        :param card_id: the card's ArkhamDB ID
+        :param card_id: the card's arkham.build ID
         :return: The errata information
         """
         for card in self.errata_data["cards"]:

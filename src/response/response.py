@@ -67,9 +67,9 @@ def look_for_card_back(query: dict, guild_id="None", image_only=False):
 
 def look_for_deck(code, deck_type, guild_id="None"):
     """
-    Given a ArkhamDB deckcode, returns a Discord.Embed that contains the information of that deck.
+    Given a arkham.build deckcode, returns a Discord.Embed that contains the information of that deck.
     :param deck_type:
-    :param code: ArkhamDB ID
+    :param code: arkham.build ID
     :return:
     """
     deck = find_deck(code, deck_type)
@@ -83,9 +83,9 @@ def look_for_deck(code, deck_type, guild_id="None"):
 
 def look_for_upgrades(code, deck_mode, guild_id="None"):
     """
-    Given a ArkhamDB deckcode, returns a Discord.Embed that
+    Given a arkham.build deckcode, returns a Discord.Embed that
     contains the upgrade information of that deck if any.
-    :param code: ArkhamDB ID
+    :param code: arkham.build ID
     :param deck_mode: if it is a decklist or a privatedeck
     :return:
     """
