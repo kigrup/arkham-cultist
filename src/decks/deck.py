@@ -1,6 +1,6 @@
 from src.core.search import find_by_id
+from src.core.utils import calculate_xp
 from src.p_cards.utils import get_color_by_investigator
-from src.api_interaction.taboo import taboo
 
 
 def diff_decks(a_deck1, a_deck2):
@@ -67,7 +67,7 @@ def extract_deck_info(deck, cards):
     for c_id, qty in deck["slots"].items():
         card = find_by_id(c_id, cards)
         text = (card, qty)
-        card_xp = taboo.calculate_xp(card, qty, info["taboo_id"])
+        card_xp = calculate_xp(card, qty)
         info["xp"] += card_xp
 
         if "real_text" in card and "Permanent." in card["real_text"]:

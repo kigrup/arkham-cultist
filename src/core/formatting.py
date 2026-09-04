@@ -45,6 +45,15 @@ def format_text(text: str, guild_id="None") -> str:
 
     return text
 
+def format_xp(c: dict) -> str:
+    """
+    Returns the xp of a card
+    """
+    if "taboo_xp" not in c and ("xp" not in c or not c["xp"]):
+        return ''
+    
+    return f" ({c["taboo_xp" if "taboo_xp" in c else "xp"]}{'E' if "exceptional" in c and c["exceptional"] else ''})"
+
 
 def format_set(c: dict) -> str:
     """
@@ -202,7 +211,7 @@ def set_image(c: dict, embed: Embed, back=False, thumbnail=True) -> None:
     :return: None
     """
     if c:
-        url = f"{ARKHAM_BUILD_CDN}/{c['code']}{'b' if back else ''}.jpg"
+        url = f"{ARKHAM_BUILD_CDN}/{c['code']}{'b' if back else ''}{f"-{c["taboo_set_id"]}" if "taboo_set_id" in c else ''}.jpg"
         if thumbnail:
             embed.set_thumbnail(url)
         else:

@@ -5,25 +5,25 @@ from src.core.translator import locale as _
 from src.p_cards.formatting import format_player_card_deck
 
 
-def format_assets(arr, key: str, taboo_info: str, guild_id="None") -> str:
+def format_assets(arr, key: str, guild_id="None") -> str:
     text = ""
     if arr:
         text += f"_{_(key)}:_"
         aux = []
         for c, q in arr:
-            aux.append(format_player_card_deck(c, q, taboo_info, guild_id))
+            aux.append(format_player_card_deck(c, q, guild_id))
         aux = sorted(aux)
         for c in aux:
             text += "\n%s" % c[2:]
     return text
 
 
-def format_all_assets(info: dict, taboo_info: str, guild_id="None"):
+def format_all_assets(info: dict, guild_id="None"):
     types = ["assets", "assets_permanents"]
     text = ""
     for key in types:
         if info[key]:
-            text += "%s\n" % format_assets(info[key], key, taboo_info, guild_id)
+            text += "%s\n" % format_assets(info[key], key, guild_id)
     return text
 
 
@@ -92,7 +92,7 @@ def format_upgraded_deck(deck1, info, guild_id="None"):
     return embed
 
 
-def format_list_of_cards_upgr(arr, taboo_info, guild_id="None"):
+def format_list_of_cards_upgr(arr, guild_id="None"):
     copy_arr = arr.copy()
     array = []
 
@@ -103,7 +103,7 @@ def format_list_of_cards_upgr(arr, taboo_info, guild_id="None"):
             q += 1
             copy_arr.remove(card)
 
-        text = format_player_card_deck(card, q, taboo_info, guild_id)
+        text = format_player_card_deck(card, q, guild_id)
         array.append(text)
     array = sorted(array)
     text = ""
@@ -112,11 +112,11 @@ def format_list_of_cards_upgr(arr, taboo_info, guild_id="None"):
     return text
 
 
-def format_list_of_cards(arr, taboo_info="", sort=True, guild_id="None"):
+def format_list_of_cards(arr, sort=True, guild_id="None"):
     text = ""
     aux = []
     for c, q in arr:
-        aux.append(format_player_card_deck(c, q, taboo_info, guild_id))
+        aux.append(format_player_card_deck(c, q, guild_id))
     if sort:
         aux = sorted(aux)
     for c in aux:

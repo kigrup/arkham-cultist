@@ -4,6 +4,7 @@ from typing import List
 
 from unidecode import unidecode
 from src.core.arkhambuild import LocalizedAttribute as attr
+from src.core.cards_db import cards as cards_db
 
 
 def card_search(query, cards, keyword_func, allow_empty=False):
@@ -17,6 +18,9 @@ def card_search(query, cards, keyword_func, allow_empty=False):
     :return:
     """
     f_cards = cards.copy()
+
+    if "taboo_set" in query:
+        f_cards = [cards_db.get_taboo_compliant_version(c, query["taboo_set"]) for c in f_cards]
 
     if "subtitle" in query and query["subtitle"]:
         f_cards = [c for c in f_cards if filter_by_subtext(c, query["subtitle"])]

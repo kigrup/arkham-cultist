@@ -1,7 +1,6 @@
 from interactions import OptionType, SlashCommandChoice, SlashCommandOption
 
 from src.api_interaction.preview import preview
-from src.api_interaction.taboo import taboo
 from src.core.metadata import metadata
 from src.core.cards_db import cards
 from src.core.formatting import format_name
@@ -80,6 +79,16 @@ def player_card_slash_options(name_req=False, allow_image_only=False):
             type=OptionType.STRING,
             required=False,
         ),
+        SlashCommandOption(
+            name="taboo_set",
+            description=_("taboo_description"),
+            choices=[
+                SlashCommandChoice(name=taboo_set_name, value=taboo_set_id)
+                for taboo_set_name, taboo_set_id in metadata.get_taboo_sets()
+            ],
+            type=OptionType.NUMBER,
+            required=False,
+        )
     ]
 
 
@@ -105,7 +114,7 @@ def deck_slash_options():
     ]
 
 
-def general_card_slash_options():
+def general_card_slash_options(allow_taboo_set=False):
     """Returns the slash command options for general cards."""
     
     return [
@@ -158,7 +167,18 @@ def general_card_slash_options():
             type=OptionType.STRING,
             required=False,
         ),
-    ]
+    ] + [
+        SlashCommandOption(
+            name="taboo_set",
+            description=_("taboo_description"),
+            choices=[
+                SlashCommandChoice(name=taboo_set_name, value=taboo_set_id)
+                for taboo_set_name, taboo_set_id in metadata.get_taboo_sets()
+            ],
+            type=OptionType.NUMBER,
+            required=False,
+        )
+    ] if allow_taboo_set else []
 
 
 def tarot_slash_options():
@@ -194,7 +214,7 @@ def timing_slash_options():
 
 def customizable_card_slash_options():
     """Return the slash command options for costumizable upgrade cards"""
-    customizable_cards = cards.get_customizable_cards()
+    customizable_cards = cards.get_customizable_cards(include_taboo_versions=False)
     return [
         SlashCommandOption(
             name="name",
@@ -205,5 +225,15 @@ def customizable_card_slash_options():
                 SlashCommandChoice(name=f"{format_name(c)}", value=c["code"])
                 for c in customizable_cards
             ],
-        )
+        ),
+        SlashCommandOption(
+            name="taboo_set",
+            description=_("taboo_description"),
+            choices=[
+                SlashCommandChoice(name=taboo_set_name, value=taboo_set_id)
+                for taboo_set_name, taboo_set_id in metadata.get_taboo_sets()
+            ],
+            type=OptionType.NUMBER,
+            required=False,
+        ),
     ]

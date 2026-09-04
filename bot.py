@@ -69,10 +69,12 @@ async def player_card(
     subtitle="",
     cycle="",
     traits="",
+    taboo_set=0,
 ):
     """Handles the /ah slash command, this command returns' player cards."""
     try:
-        query = dict_of(name, level, faction, extras, subtitle, cycle, traits)
+        taboo_set=int(taboo_set)
+        query = dict_of(name, level, faction, extras, subtitle, cycle, traits, taboo_set)
         increment_command(ctx.guild_id, ctx.author_id, "ah", query=query)
         embed, hidden = look_for_player_card(query, str(ctx.guild_id), image_only=image_only)
         await ctx.send(embeds=embed, ephemeral=hidden)
@@ -85,7 +87,7 @@ async def player_card(
     options=deck_slash_options(),  # type: ignore
 )
 async def deck(ctx: SlashContext, code, deck_type=""):
-    """Handles the /ahDeck command, it returns a deck from ArkhamDB."""
+    """Handles the /ahDeck command, it returns a deck from arkham.build."""
     try:
         await ctx.defer()
         increment_command(ctx.guild_id, ctx.author_id, "ahdeck", code=code, deck_type=deck_type)
@@ -115,7 +117,7 @@ async def upgrade(ctx: SlashContext, code, deck_type=""):
     options=general_card_slash_options(),  # type: ignore
 )
 async def encounter(
-    ctx: SlashContext, name="", card_type="", image_only=False, subtitle="", cycle="", traits=""
+    ctx: SlashContext, name="", card_type="", image_only=False, subtitle="", cycle="", traits="", taboo_set=0
 ):
     """Handle the /ahe command, it returns encounter cards."""
     try:
@@ -129,14 +131,15 @@ async def encounter(
 @slash_command(
     name="ahb",
     description=_("ahb_description"),
-    options=general_card_slash_options(),  # type: ignore
+    options=general_card_slash_options(allow_taboo_set=True),  # type: ignore
 )
 async def back(
-    ctx: SlashContext, name="", card_type="", image_only=False, subtitle="", cycle="", traits=""
+    ctx: SlashContext, name="", card_type="", image_only=False, subtitle="", cycle="", traits="", taboo_set=0
 ):
     """Handles the /ahb command, it returns card backs."""
     try:
-        query = dict_of(name, card_type, subtitle, cycle, traits)
+        taboo_set=int(taboo_set)
+        query = dict_of(name, card_type, subtitle, cycle, traits, taboo_set)
         increment_command(ctx.guild_id, ctx.author_id, "ahb", query=query)
         embed, hidden = look_for_card_back(query, str(ctx.guild_id), image_only=image_only)
         await ctx.send(embeds=embed, ephemeral=hidden)
@@ -185,10 +188,12 @@ async def list_cards(
     subtitle="",
     cycle="",
     traits="",
+    taboo_set=0
 ):
     """Handles the /ahList command, it lists playercards."""
     try:
-        query = dict_of(name, level, faction, extras, subtitle, cycle, traits)
+        taboo_set=int(taboo_set)
+        query = dict_of(name, level, faction, extras, subtitle, cycle, traits, taboo_set)
         increment_command(ctx.guild_id, ctx.author_id, "ahlist", query=query)
         embed, hidden = look_for_list_of_cards(query, str(ctx.guild_id))
         await ctx.send(embeds=embed, ephemeral=hidden)
@@ -210,10 +215,12 @@ async def random(
     subtitle="",
     cycle="",
     traits="",
+    taboo_set=0
 ):
     """Handles the /ahRandom command, it returns a random card."""
     try:
-        query = dict_of(name, level, faction, extras, subtitle, cycle, traits)
+        taboo_set=int(taboo_set)
+        query = dict_of(name, level, faction, extras, subtitle, cycle, traits, taboo_set)
         increment_command(ctx.guild_id, ctx.author_id, "ahrandom", query=query)
         embed, hidden = look_for_random_player_card(query, str(ctx.guild_id), image_only=image_only)
         await ctx.send(embeds=embed, ephemeral=hidden)
@@ -234,10 +241,12 @@ async def ah_who(
     subtitle="",
     cycle="",
     traits="",
+    taboo_set=0
 ):
     """Handles the /ah slash command, this command returns' player cards."""
     try:
-        query = dict_of(name, level, faction, extras, subtitle, cycle, traits)
+        taboo_set=int(taboo_set)
+        query = dict_of(name, level, faction, extras, subtitle, cycle, traits, taboo_set)
         increment_command(ctx.guild_id, ctx.author_id, "ahwho", query=query)
         embed, hidden = look_for_whom(query, str(ctx.guild_id))
         await ctx.send(embeds=embed, ephemeral=hidden)
@@ -249,10 +258,11 @@ async def ah_who(
     description=_("ahCustomizable_description"),
     options=customizable_card_slash_options(),  # type: ignore
 )
-async def costumizable_card(ctx: SlashContext, name=""):
+async def costumizable_card(ctx: SlashContext, name="", taboo_set=0):
     """Handles the /ahahCustomizable command. Returns the upgrade sheet of a card."""
     try:
-        query = {"name": name}
+        taboo_set=int(taboo_set)
+        query = dict_of(name, taboo_set)
         increment_command(ctx.guild_id, ctx.author_id, "ahcustomizable", query=query)
         embed, hidden = look_for_customizable_card(query, str(ctx.guild_id))
         await ctx.send(embeds=embed, ephemeral=hidden)

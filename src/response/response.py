@@ -9,6 +9,7 @@ from src.core.cards_db import cards
 from src.core.formatting import create_embed
 from src.core.search import card_search
 from src.core.translator import locale as _
+from src.core.cards_db import cards as cards_db
 from src.decks.deck import check_upgrade_rules, extract_deck_info
 from src.decks.formatting import format_deck, format_list_of_cards, format_upgraded_deck
 from src.decks.search import find_deck, find_former_deck
@@ -208,6 +209,9 @@ def look_for_customizable_card(query: dict, guild_id="None"):
     """
 
     r_cards = [c for c in cards.get_customizable_cards() if c["code"] == query["name"]]
+    if "taboo_set" in query:
+        r_cards = [cards_db.get_taboo_compliant_version(c, query["taboo_set"]) for c in r_cards]
+
     if not r_cards:
         return create_embed(_("card_not_found")), True
 

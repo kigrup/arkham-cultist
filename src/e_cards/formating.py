@@ -1,4 +1,3 @@
-from src.api_interaction.taboo import taboo
 from src.core.formatting import (
     format_text,
     format_name,
@@ -38,7 +37,6 @@ def format_enemy_card(c, guild_id="None", image_only=False):
     vengeance = text_if("%s\n", format_vengeance(c))
     errata_text = errata.format_errata_text(c["code"], guild_id=guild_id)
 
-    taboo_text = taboo.format_taboo_text(c["code"], guild_id=guild_id)
     m_title = f"{faction} {name}{subtext}"
     m_description = (
         f"{c_type}\n"
@@ -50,7 +48,6 @@ def format_enemy_card(c, guild_id="None", image_only=False):
         f"{attack}"
         f"{flavour}"
         f"{errata_text}"
-        f"{taboo_text}"
     )
     m_footnote = format_illus_pack(c)
     return create_embed(m_title, m_description, c, m_footnote, image_only=image_only)
@@ -133,7 +130,6 @@ def format_treachery_card(c, guild_id="None", image_only=False):
     victory = text_if("%s\n", format_victory(c))
     vengeance = text_if("%s\n", format_vengeance(c))
     m_title = f"{faction} {name}"
-    taboo_text = taboo.format_taboo_text(c["code"], guild_id)
     m_description = (
         f"{c_type}\n"
         f"{traits}\n\n"
@@ -142,7 +138,6 @@ def format_treachery_card(c, guild_id="None", image_only=False):
         f"{vengeance}"
         f"{flavour}"
         f"{errata_text}"
-        f"{taboo_text}"
     )
     m_footnote = format_illus_pack(c)
     return create_embed(m_title, m_description, c, m_footnote, image_only=image_only)

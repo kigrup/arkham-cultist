@@ -58,3 +58,8 @@ def get_code(card):
         except ValueError:
             card_id = card_id[:-1]
     return 0
+
+def calculate_xp(card, qty):
+    if "xp" not in card:
+        return 0
+    return qty * (card["xp"] * (2 if "exceptional" in card and card["exceptional"] else 1) + (card["taboo_xp"] if "taboo_xp" in card else 0))

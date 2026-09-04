@@ -1,6 +1,6 @@
-from src.api_interaction.taboo import taboo
 from src.core.formatting import (
     format_name,
+    format_xp,
     format_subtext,
     format_faction,
     format_illus_pack,
@@ -18,11 +18,11 @@ def format_faq(c, guild_id="None"):
     name = format_name(c)
     subtext = format_subtext(c)
     faction = format_faction(c, guild_id)
-    level = taboo.format_xp(c)
+    level = format_xp(c)
     text = f"> {format_card_text(c, guild_id=guild_id)}"
     faq = format_faq_text(c["code"], back=False, guild_id)
 
-    title = f"{faction} {name}{subtext} {level}"
+    title = f"{faction} {name}{subtext} {level if level else ''}"
     description = f"{text}\n{faq}"
     m_footnote = format_illus_pack(c)
     return create_embed(title, description, c, m_footnote)

@@ -1,6 +1,5 @@
-from src.api_interaction.taboo import taboo
 from src.core.cards_db import cards
-from src.core.formatting import create_embed, format_text
+from src.core.formatting import create_embed, format_text, format_xp
 from src.core.translator import locale as _
 from src.who.utils import match_investigator_deck_options, filter_by_classes
 from config import ARKHAM_BUILD
@@ -34,11 +33,11 @@ def resolve_search_who(array, guild_id="None"):
 def format_who(card, array, positive=True, guild_id="None"):
     """Formats the who command for a card."""
     neg_text = "" if positive else "_neg"
-    title = f"{_(f'ahWho_title{neg_text}')}: {card[attr.NAME.get(card)]}{taboo.format_xp(card)}"
+    title = f"{_(f'ahWho_title{neg_text}')}: {card[attr.NAME.get(card)]}{format_xp(card)}"
     description = ""
 
     if len(array) == 0 and not positive:
-        title = f"{_('ahWho_title')}: {card[attr.NAME.get(card)]}{taboo.format_xp(card)}"
+        title = f"{_('ahWho_title')}: {card[attr.NAME.get(card)]}{format_xp(card)}"
         description = f"{_('ahWho_everyone')}"
         return create_embed(title=title, description=description, c=card)
 
