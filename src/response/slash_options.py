@@ -167,7 +167,7 @@ def general_card_slash_options(allow_taboo_set=False):
             type=OptionType.STRING,
             required=False,
         ),
-    ] + [
+    ] + ([
         SlashCommandOption(
             name="taboo_set",
             description=_("taboo_description"),
@@ -178,7 +178,7 @@ def general_card_slash_options(allow_taboo_set=False):
             type=OptionType.NUMBER,
             required=False,
         )
-    ] if allow_taboo_set else []
+    ] if allow_taboo_set else [])
 
 
 def tarot_slash_options():
