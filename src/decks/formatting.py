@@ -39,22 +39,22 @@ def format_deck(deck, info, guild_id="None"):
 
     if info["assets_q"] > 0:
         assets = f"{_('assets')}: ({str(info['assets_q'])})"
-        assets_cards = format_all_assets(info, info["taboo_id"], guild_id)
+        assets_cards = format_all_assets(info, guild_id)
         m_description += f"**{assets}**\n{assets_cards}\n"
 
     if info["events_q"] > 0:
         events = f"{_('events')}: ({str(info['events_q'])})"
-        events_cards = format_list_of_cards(info["events"], info["taboo_id"], guild_id)
+        events_cards = format_list_of_cards(info["events"], guild_id)
         m_description += f"**{events}**\n{events_cards}\n"
 
     if info["skills_q"] > 0:
         skills = f"{_('skills')}: ({str(info['skills_q'])})"
-        skills_cards = format_list_of_cards(info["skills"], info["taboo_id"], guild_id)
+        skills_cards = format_list_of_cards(info["skills"], guild_id)
         m_description += f"**{skills}**\n{skills_cards}\n"
 
     if info["treachery_q"] > 0:
         treachery = f"{_('treacheries/enemies')}: ({str(info['treachery_q'])})"
-        treachery_cards = format_list_of_cards(info["treachery"], info["taboo_id"], guild_id)
+        treachery_cards = format_list_of_cards(info["treachery"], guild_id)
         m_description += f"**{treachery}**\n{treachery_cards}\n"
     embed = Embed(
         title=m_title, description=m_description, color=info["color"], url=url
