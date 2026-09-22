@@ -35,6 +35,7 @@ SLOT_CUSTOM_EMOJIS = {
         "Hand": "<:slot_hand:1542453716580569128>",
         "Hand x2": "<:slot_2hand:1542451448707813418>",
         "Tarot": "<:slot_tarot:1542453765058072617>",
+        "Head": "<:slot_head:1542453745604894820>",
     }
 }
 

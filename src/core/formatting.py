@@ -192,13 +192,14 @@ def slot_order(c):
         "Body": "6",
         "Ally": "7",
         "Tarot": "8",
+        "Head": "9"
     }
     if "real_slot" in c:
         if c["real_slot"]:
             slots = c["real_slot"].split(". ")
             if slots[0]:
                 return order[slots[0]]
-    return "9"
+    return "0"
 
 def set_image(c: dict, embed: Embed, back=False, thumbnail=True) -> None:
     """
